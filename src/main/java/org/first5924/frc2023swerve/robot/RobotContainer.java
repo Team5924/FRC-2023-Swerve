@@ -57,7 +57,7 @@ public class RobotContainer {
     }
 
     swerveModeChooser.addDefaultOption("Field Centric", true);
-    swerveModeChooser.addDefaultOption("Robot Centric", false);
+    swerveModeChooser.addOption("Robot Centric", false);
 
     // Configure the button bindings
     configureButtonBindings();
