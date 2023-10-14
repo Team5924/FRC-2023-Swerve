@@ -14,7 +14,7 @@ import edu.wpi.first.math.util.Units;
 
 /** IO implementation for Pigeon2 */
 public class GyroIOPigeon2 implements GyroIO {
-  private final Pigeon2 mPigeon2 = new Pigeon2(RobotConstants.kPigeonPort);
+  private final Pigeon2 mPigeon2 = new Pigeon2(RobotConstants.kPigeonId);
 
   public GyroIOPigeon2() {
     mPigeon2.setYaw(0.0);
