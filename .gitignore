@@ -164,4 +164,4 @@ bin/
 simgui*.json
 
 # Version file
-src/main/java/frc/robot/BuildConstants.java
+src/main/java/org/first5924/frc2023swerve/constants/BuildConstants.java
