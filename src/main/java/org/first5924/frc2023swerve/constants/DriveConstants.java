@@ -25,10 +25,10 @@ public class DriveConstants {
     public static final int kLeftBackCANCoderId = 10;
     public static final int kRightBackCANCoderId = 11;
 
-    public static final double kLeftFrontAbsoluteEncoderOffsetRad = 3.778;
-    public static final double kLeftBackAbsoluteEncoderOffsetRad = 1.232;
-    public static final double kRightBackAbsoluteEncoderOffsetRad = 1.460;
-    public static final double kRightFrontAbsoluteEncoderOffsetRad = 0.465;
+    public static final double kLeftFrontAbsoluteEncoderOffsetRad = -3.785;
+    public static final double kLeftBackAbsoluteEncoderOffsetRad = -1.247;
+    public static final double kRightBackAbsoluteEncoderOffsetRad = -1.462;
+    public static final double kRightFrontAbsoluteEncoderOffsetRad = -3.635;
 
     public static final double kTrackWidthX = Units.inchesToMeters(18.25);
     public static final double kTrackWidthY = Units.inchesToMeters(18.25);
