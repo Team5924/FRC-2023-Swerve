@@ -33,8 +33,8 @@ public class Drive extends SubsystemBase {
   private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
     new Translation2d(DriveConstants.kTrackWidthX / 2, DriveConstants.kTrackWidthY / 2),
     new Translation2d(DriveConstants.kTrackWidthX / 2, -DriveConstants.kTrackWidthY / 2),
-    new Translation2d(-DriveConstants.kTrackWidthX / 2, -DriveConstants.kTrackWidthY / 2),
-    new Translation2d(-DriveConstants.kTrackWidthX / 2, DriveConstants.kTrackWidthY / 2));
+    new Translation2d(-DriveConstants.kTrackWidthX / 2, DriveConstants.kTrackWidthY / 2),
+    new Translation2d(-DriveConstants.kTrackWidthX / 2, -DriveConstants.kTrackWidthY / 2));
 
   private boolean isBrakeMode = false;
   private Timer lastMovementTimer = new Timer();
@@ -42,14 +42,14 @@ public class Drive extends SubsystemBase {
   public Drive(
       GyroIO gyroIO,
       ModuleIO flModuleIO,
+      ModuleIO frModuleIO,
       ModuleIO blModuleIO,
-      ModuleIO brModuleIO,
-      ModuleIO frModuleIO) {
+      ModuleIO brModuleIO) {
     this.gyroIO = gyroIO;
     modules[0] = new Module(flModuleIO, 0);
-    modules[1] = new Module(blModuleIO, 1);
-    modules[2] = new Module(brModuleIO, 2);
-    modules[3] = new Module(frModuleIO, 3);
+    modules[1] = new Module(frModuleIO, 1);
+    modules[2] = new Module(blModuleIO, 2);
+    modules[3] = new Module(brModuleIO, 3);
     lastMovementTimer.start();
     for (var module : modules) {
       module.setBrakeMode(false);

@@ -38,22 +38,22 @@ public class ModuleIOSparkMax implements ModuleIO {
         absoluteEncoderOffsetRad = DriveConstants.kLeftFrontAbsoluteEncoderOffsetRad;
         break;
       case 1:
+        driveSparkMax = new CANSparkMax(DriveConstants.kRightFrontDriveSparkId, MotorType.kBrushless);
+        turnSparkMax = new CANSparkMax(DriveConstants.kRightFrontTurnSparkId, MotorType.kBrushless);
+        turnAbsoluteEncoder = new CANcoder(DriveConstants.kRightFrontCANCoderId);
+        absoluteEncoderOffsetRad = DriveConstants.kRightFrontAbsoluteEncoderOffsetRad;
+        break;
+      case 2:
         driveSparkMax = new CANSparkMax(DriveConstants.kLeftBackDriveSparkId, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(DriveConstants.kLeftBackTurnSparkId, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(DriveConstants.kLeftBackCANCoderId);
         absoluteEncoderOffsetRad = DriveConstants.kLeftBackAbsoluteEncoderOffsetRad;
         break;
-      case 2:
+      case 3:
         driveSparkMax = new CANSparkMax(DriveConstants.kRightBackDriveSparkId, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(DriveConstants.kRightBackTurnSparkId, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(DriveConstants.kRightBackCANCoderId);
         absoluteEncoderOffsetRad = DriveConstants.kRightBackAbsoluteEncoderOffsetRad;
-        break;
-      case 3:
-        driveSparkMax = new CANSparkMax(DriveConstants.kRightFrontDriveSparkId, MotorType.kBrushless);
-        turnSparkMax = new CANSparkMax(DriveConstants.kRightFrontTurnSparkId, MotorType.kBrushless);
-        turnAbsoluteEncoder = new CANcoder(DriveConstants.kRightFrontCANCoderId);
-        absoluteEncoderOffsetRad = DriveConstants.kRightFrontAbsoluteEncoderOffsetRad;
         break;
       default:
         throw new RuntimeException("Invalid module index for ModuleIOSparkMax");

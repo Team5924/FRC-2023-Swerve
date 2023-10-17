@@ -11,19 +11,19 @@ public class DriveConstants {
     public static final int kLeftFrontDriveSparkId = 1;
     public static final int kLeftFrontTurnSparkId = 2;
 
+    public static final int kRightFrontDriveSparkId = 7;
+    public static final int kRightFrontTurnSparkId = 8;
+
     public static final int kLeftBackDriveSparkId = 3;
     public static final int kLeftBackTurnSparkId = 4;
 
     public static final int kRightBackDriveSparkId = 5;
     public static final int kRightBackTurnSparkId = 6;
 
-    public static final int kRightFrontDriveSparkId = 7;
-    public static final int kRightFrontTurnSparkId = 8;
-
     public static final int kLeftFrontCANCoderId = 9;
+    public static final int kRightFrontCANCoderId = 12;
     public static final int kLeftBackCANCoderId = 10;
     public static final int kRightBackCANCoderId = 11;
-    public static final int kRightFrontCANCoderId = 12;
 
     public static final double kLeftFrontAbsoluteEncoderOffsetRad = 3.778;
     public static final double kLeftBackAbsoluteEncoderOffsetRad = 1.232;
