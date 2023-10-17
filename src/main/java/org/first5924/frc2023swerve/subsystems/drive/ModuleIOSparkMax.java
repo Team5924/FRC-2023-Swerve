@@ -10,7 +10,9 @@ package org.first5924.frc2023swerve.subsystems.drive;
 import org.first5924.frc2023swerve.constants.DriveConstants;
 import org.first5924.frc2023swerve.constants.RobotConstants;
 
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -62,6 +64,11 @@ public class ModuleIOSparkMax implements ModuleIO {
     driveEncoder = driveSparkMax.getEncoder();
     turnEncoder = turnSparkMax.getEncoder();
 
+    MagnetSensorConfigs magnetSensorConfigs = new MagnetSensorConfigs();
+    magnetSensorConfigs.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
+    magnetSensorConfigs.MagnetOffset = Units.radiansToRotations(absoluteEncoderOffsetRad);
+    turnAbsoluteEncoder.getConfigurator().apply(magnetSensorConfigs);
+
     turnSparkMax.setInverted(isTurnMotorInverted);
 
     driveSparkMax.setSmartCurrentLimit(40);
@@ -87,7 +94,7 @@ public class ModuleIOSparkMax implements ModuleIO {
     inputs.driveCurrentAmps = driveSparkMax.getOutputCurrent();
     inputs.driveTempCelcius = driveSparkMax.getMotorTemperature();
 
-    inputs.turnAbsolutePositionRad = Units.rotationsToRadians(turnAbsoluteEncoder.getAbsolutePosition().getValue()) - absoluteEncoderOffsetRad;
+    inputs.turnAbsolutePositionRad = Units.rotationsToRadians(turnAbsoluteEncoder.getAbsolutePosition().getValue());
     inputs.turnPositionRad = Units.rotationsToRadians(turnEncoder.getPosition()) * DriveConstants.kEncoderToTurnReduction;
     inputs.turnVelocityRadPerSec = Units.rotationsPerMinuteToRadiansPerSecond(turnEncoder.getVelocity()) * DriveConstants.kEncoderToTurnReduction;
     inputs.turnCurrentAmps = turnSparkMax.getOutputCurrent();
