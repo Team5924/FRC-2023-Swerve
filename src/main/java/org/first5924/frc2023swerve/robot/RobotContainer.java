@@ -13,7 +13,10 @@ import org.first5924.frc2023swerve.subsystems.drive.GyroIOPigeon2;
 import org.first5924.frc2023swerve.subsystems.drive.ModuleIO;
 import org.first5924.frc2023swerve.subsystems.drive.ModuleIOSparkMax;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-
+import org.first5924.frc2023swerve.subsystems.intake.Intake;
+import org.first5924.frc2023swerve.subsystems.intake.IntakeIOTalonFX;
+import org.first5924.frc2023swerve.commands.intake.RunIntake;
+import org.first5924.frc2023swerve.subsystems.intake.IntakeIO;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,10 +32,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
+  private final Intake intake;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
-
+  private final CommandXboxController operatorController = new CommandXboxController(1);
   private final LoggedDashboardChooser<Boolean> swerveModeChooser = new LoggedDashboardChooser<>("Swerve Mode Chooser");
 
   /**
@@ -43,16 +47,19 @@ public class RobotContainer {
       // Real robot, instantiate hardware IO implementations
       case REAL:
         drive = new Drive(new GyroIOPigeon2(), new ModuleIOSparkMax(0), new ModuleIOSparkMax(1), new ModuleIOSparkMax(2), new ModuleIOSparkMax(3));
+        intake = new Intake(new IntakeIOTalonFX());
         break;
 
       // Sim robot, instantiate physics sim IO implementations
       case SIM:
         drive = new Drive(new GyroIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {});
+        intake = new Intake(new IntakeIO() {});
         break;
 
       // Replayed robot, disable IO implementations
       default:
         drive = new Drive(new GyroIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {});
+        intake = new Intake(new IntakeIO() {});
         break;
     }
 
@@ -73,6 +80,12 @@ public class RobotContainer {
     drive.setDefaultCommand(
         new DriveWithJoysticks(drive, driverController::getLeftX, driverController::getLeftY, driverController::getRightY, swerveModeChooser::get));
     driverController.a().onTrue(new ZeroGyroYaw(drive));
+
+    operatorController.leftTrigger().whileTrue(new RunIntake(intake, -0.15));
+    // Operator Right Trigger
+    operatorController.rightTrigger().whileTrue(new RunIntake(intake, 0.8));
+    
+
   }
 
   /**
