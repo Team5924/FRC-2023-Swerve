@@ -26,7 +26,7 @@ public class IntakeIOTalonFX implements IntakeIO {
     @Override
     public void updateInputs(IntakeIOInputs inputs) {
         inputs.intakePositionDegrees = intakeTalon.getRotorPosition().getValue() * 360 / IntakeConstants.kGearRatio;
-        inputs.intakeVelocityDegreesPerSecond = intakeTalon.getVelocity().getValue() / 60 * 360 / PivotConstants.kGearRatio;
+        inputs.intakeVelocityDegreesPerSecond = intakeTalon.getVelocity().getValue() / 60 * 360 / IntakeConstants.kGearRatio;
         inputs.outputCurrent = intakeTalon.getSupplyVoltage().getValue();
     }
 

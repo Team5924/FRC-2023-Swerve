@@ -15,6 +15,9 @@ import org.first5924.frc2023swerve.subsystems.drive.ModuleIOSparkMax;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.first5924.frc2023swerve.subsystems.intake.Intake;
 import org.first5924.frc2023swerve.subsystems.intake.IntakeIOTalonFX;
+import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
+import org.first5924.frc2023swerve.subsystems.pivot.PivotIO;
+import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
 import org.first5924.frc2023swerve.commands.intake.RunIntake;
 import org.first5924.frc2023swerve.subsystems.intake.IntakeIO;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -33,6 +36,7 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive;
   private final Intake intake;
+  private final Pivot pivot;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -48,18 +52,21 @@ public class RobotContainer {
       case REAL:
         drive = new Drive(new GyroIOPigeon2(), new ModuleIOSparkMax(0), new ModuleIOSparkMax(1), new ModuleIOSparkMax(2), new ModuleIOSparkMax(3));
         intake = new Intake(new IntakeIOTalonFX());
+        pivot = new Pivot(new PivotIOTalonFX());
         break;
 
       // Sim robot, instantiate physics sim IO implementations
       case SIM:
         drive = new Drive(new GyroIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {});
         intake = new Intake(new IntakeIO() {});
+        pivot = new Pivot(new PivotIO() {});
         break;
 
       // Replayed robot, disable IO implementations
       default:
         drive = new Drive(new GyroIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {});
         intake = new Intake(new IntakeIO() {});
+        pivot =  new Pivot(new PivotIO() {});
         break;
     }
 

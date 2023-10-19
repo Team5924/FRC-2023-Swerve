@@ -4,11 +4,9 @@
 
 package org.first5924.frc2023swerve.subsystems.intake;
 
-import org.first5924.frc2023.constants.PivotConstants;
+import org.first5924.frc2023swerve.constants.IntakeConstants;
 import org.littletonrobotics.junction.Logger;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -20,7 +18,7 @@ public class Intake extends SubsystemBase {
 
   public Intake(IntakeIO io) {
     this.io = io;
-    setEncoderFromIntakeDegrees(PivotConstants.kStartingDegrees);
+    //setEncoderFromIntakeDegrees(IntakeConstants.kStartingDegrees);
   }
 
   @Override
