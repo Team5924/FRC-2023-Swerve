@@ -44,9 +44,9 @@ public class DriveWithJoysticks extends CommandBase {
     double leftYJoystick = leftJoystickYSupplier.getAsDouble();
     double rightYJoystick = rightJoystickYSupplier.getAsDouble();
 
-    double deadbandedLeftXJoystick = MathUtil.applyDeadband(leftXJoystick, InputConstants.kDeadband);
-    double deadbandedLeftYJoystick = MathUtil.applyDeadband(leftYJoystick, InputConstants.kDeadband);
-    double deadbandedRightYJoystick = MathUtil.applyDeadband(rightYJoystick, InputConstants.kDeadband);
+    double deadbandedLeftXJoystick = MathUtil.applyDeadband(leftXJoystick, InputConstants.kDriveDeadband);
+    double deadbandedLeftYJoystick = MathUtil.applyDeadband(leftYJoystick, InputConstants.kDriveDeadband);
+    double deadbandedRightYJoystick = MathUtil.applyDeadband(rightYJoystick, InputConstants.kDriveDeadband);
 
     // xPercent takes leftY and yPercent takes leftX because for ChassisSpeeds x is forward/backward and y is left/right
     // Negative signs because y joystick up is - and because x joystick left is -

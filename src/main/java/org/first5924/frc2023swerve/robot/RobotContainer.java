@@ -19,6 +19,8 @@ import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIO;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
 import org.first5924.frc2023swerve.commands.intake.RunIntake;
+import org.first5924.frc2023swerve.commands.pivot.RotatePivot;
+import org.first5924.frc2023swerve.commands.pivot.SetPivot;
 import org.first5924.frc2023swerve.subsystems.intake.IntakeIO;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -92,7 +94,8 @@ public class RobotContainer {
     // Operator Right Trigger
     operatorController.rightTrigger().whileTrue(new RunIntake(intake, 0.8));
     
-
+    pivot.setDefaultCommand(new RotatePivot(pivot, operatorController::getRightY));
+    operatorController.x().onTrue(new SetPivot(pivot, operatorController::getRightY, 30));
   }
 
   /**
