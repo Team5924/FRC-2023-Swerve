@@ -8,8 +8,8 @@ import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class PivotConstants {
-    public static final double kGearRatio = 1;
-    public static final double kStartingDegrees = 0.1;
+    public static final double kGearRatio = 118.8;
+    public static final double kStartingDegrees = 0;
     public static final double kSpeedMultiplier = 0.6;
 
 }

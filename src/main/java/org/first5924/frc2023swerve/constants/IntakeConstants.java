@@ -8,8 +8,8 @@ import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class IntakeConstants {
-    public static final double kGearRatio = 1;
-    public static final double kStartingDegrees = 0.1;
+    public static final double kGearRatio = 18/24;
+    public static final double kStartingDegrees = 0;
 
 
 }
