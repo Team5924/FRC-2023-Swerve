@@ -45,7 +45,7 @@ public class SetPivot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(mJoystickY.getAsDouble()) > InputConstants.kDeadband) {
+    if (Math.abs(mJoystickY.getAsDouble()) > InputConstants.kDriveDeadband) {
       return true;
     } else {
       return false;
