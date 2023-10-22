@@ -35,6 +35,7 @@ public class DriveConstants {
 
     public static final double kMaxLinearSpeed = Units.feetToMeters(16.0);
     public static final double kMaxAngularSpeedRad = kMaxLinearSpeed / Math.hypot(kTrackWidthX / 2, kTrackWidthY / 2);
+    public static final double kAngularSpeedMultiplier = 0.45;
 
     public static final double kWheelRadius = Units.inchesToMeters(2.0);
 

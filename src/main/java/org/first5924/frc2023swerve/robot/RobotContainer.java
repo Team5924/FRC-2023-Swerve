@@ -87,7 +87,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     drive.setDefaultCommand(
-        new DriveWithJoysticks(drive, driverController::getLeftX, driverController::getLeftY, driverController::getRightY, swerveModeChooser::get));
+        new DriveWithJoysticks(drive, driverController::getLeftX, driverController::getLeftY, driverController::getRightX, swerveModeChooser::get));
     driverController.a().onTrue(new ZeroGyroYaw(drive));
 
     operatorController.leftTrigger().whileTrue(new RunIntake(intake, -0.15));
