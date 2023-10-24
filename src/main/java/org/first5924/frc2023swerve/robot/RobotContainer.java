@@ -7,6 +7,7 @@ package org.first5924.frc2023swerve.robot;
 import org.first5924.frc2023swerve.commands.drive.DriveWithJoysticks;
 import org.first5924.frc2023swerve.commands.drive.ZeroGyroYaw;
 import org.first5924.frc2023swerve.constants.Constants;
+import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
 import org.first5924.frc2023swerve.subsystems.drive.Drive;
 import org.first5924.frc2023swerve.subsystems.drive.GyroIO;
 import org.first5924.frc2023swerve.subsystems.drive.GyroIOPigeon2;
@@ -20,6 +21,7 @@ import org.first5924.frc2023swerve.subsystems.pivot.PivotIO;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
 import org.first5924.frc2023swerve.commands.intake.RunIntake;
 import org.first5924.frc2023swerve.commands.pivot.PivotTrackSetpoint;
+import org.first5924.frc2023swerve.commands.pivot.SetPivotState;
 import org.first5924.frc2023swerve.subsystems.intake.IntakeIO;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -90,6 +92,11 @@ public class RobotContainer {
     driverController.a().onTrue(new ZeroGyroYaw(drive));
 
     operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
+    operatorController.rightBumper().onTrue(new SetPivotState(pivot, PivotState.PICKUP));
+    operatorController.leftBumper().onTrue(new SetPivotState(pivot, PivotState.CHARGE));
+    operatorController.y().onTrue(new SetPivotState(pivot, PivotState.HIGH));
+    operatorController.b().onTrue(new SetPivotState(pivot, PivotState.MID));
+    operatorController.a().onTrue(new SetPivotState(pivot, PivotState.LOW));
 
     pivot.setDefaultCommand(new PivotTrackSetpoint(pivot));
   }
