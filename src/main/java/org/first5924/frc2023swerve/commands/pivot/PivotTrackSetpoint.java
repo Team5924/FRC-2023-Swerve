@@ -3,46 +3,37 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package org.first5924.frc2023swerve.commands.pivot;
-import java.util.function.DoubleSupplier;
 
-import org.first5924.frc2023swerve.constants.InputConstants;
-import org.first5924.frc2023swerve.constants.PivotConstants;
-import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class RotatePivot extends CommandBase {
-  private final Pivot mPivot;
-  private final DoubleSupplier mJoystickY;
+public class PivotTrackSetpoint extends CommandBase {
+  private final Pivot pivot;
 
-  //private final PivotIOSparkMax m_pivot;
-  //pr0ivate PivotIO m_percentage;
-  /** Creates a new RotatePivot. */
-  public RotatePivot(Pivot pivot, DoubleSupplier joystickY) {
-    mPivot = pivot;
-    mJoystickY = joystickY;
+  /** Creates a new SetPivot. */
+  public PivotTrackSetpoint(Pivot pivot) {
+    this.pivot = pivot;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(mPivot);
+    addRequirements(pivot);
   }
-
-
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mPivot.setPercent(MathUtil.applyDeadband(-mJoystickY.getAsDouble(), InputConstants.kDriveDeadband) * PivotConstants.kSpeedMultiplier);
+    pivot.setPosition(pivot.getPivotState().getPivotAngle());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    pivot.setVoltage(0);
   }
 
   // Returns true when the command should end.

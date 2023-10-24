@@ -7,37 +7,44 @@ package org.first5924.frc2023swerve.subsystems.intake;
 
 import org.first5924.frc2023swerve.constants.IntakeConstants;
 
-
-import com.ctre.phoenix6.configs.TalonFXConfigurator;
-import com.ctre.phoenix6.hardware.ParentDevice;
-
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 
 
 /** Add your docs here. */
 public class IntakeIOTalonFX implements IntakeIO {
-    private final TalonFX intakeTalon = new TalonFX(0);
+    private final TalonFX intakeTalon = new TalonFX(IntakeConstants.kTalonId);
 
     public IntakeIOTalonFX() {
+        TalonFXConfiguration talonFXConfiguration = new TalonFXConfiguration();
 
+        MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs();
+        motorOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
+        motorOutputConfigs.NeutralMode = NeutralModeValue.Coast;
+        talonFXConfiguration.MotorOutput = motorOutputConfigs;
+
+        CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs();
+        currentLimitsConfigs.SupplyCurrentLimit = 20;
+        currentLimitsConfigs.SupplyCurrentThreshold = 20;
+        currentLimitsConfigs.SupplyTimeThreshold = 0.1;
+        currentLimitsConfigs.StatorCurrentLimitEnable = true;
+        talonFXConfiguration.CurrentLimits = currentLimitsConfigs;
+
+        intakeTalon.getConfigurator().apply(talonFXConfiguration);
     }
 
     @Override
     public void updateInputs(IntakeIOInputs inputs) {
-        inputs.intakePositionDegrees = intakeTalon.getRotorPosition().getValue() * 360 / IntakeConstants.kGearRatio;
-        inputs.intakeVelocityDegreesPerSecond = intakeTalon.getVelocity().getValue() / 60 * 360 / IntakeConstants.kGearRatio;
-        inputs.outputCurrent = intakeTalon.getSupplyVoltage().getValue();
+        inputs.supplyCurrent = intakeTalon.getSupplyCurrent().getValue();
     }
 
     @Override
-    public void setPercent(double percent) {
-        intakeTalon.set(percent);
-    }
-
-
-    @Override
-    public void setEncoderPosition(double position) {
-        intakeTalon.setRotorPosition(position);
+    public void setVoltage(double voltage) {
+        intakeTalon.setVoltage(voltage);;
     }
 }

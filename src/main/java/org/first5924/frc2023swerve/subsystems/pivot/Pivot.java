@@ -5,6 +5,7 @@
 package org.first5924.frc2023swerve.subsystems.pivot;
 
 import org.first5924.frc2023swerve.constants.PivotConstants;
+import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
@@ -16,8 +17,8 @@ public class Pivot extends SubsystemBase {
   /** Creates a new PivotSubsystem. */
   private final PivotIO io;
   private final PivotIOInputsAutoLogged inputs = new PivotIOInputsAutoLogged();
-  private final PIDController mPID = new PIDController(0.4, 0, 0);
-
+  private final PIDController pidController = new PIDController(0.4, 0, 0);
+  private PivotState pivotState = PivotState.HIGH;
 
   public Pivot(PivotIO io) {
     this.io = io;
@@ -29,31 +30,34 @@ public class Pivot extends SubsystemBase {
     // This method will be called once per scheduler run
     io.updateInputs(inputs);
     Logger.getInstance().processInputs("Pivot", inputs);
+    Logger.getInstance().recordOutput("Pivot/State", getPivotState().toString());
   }
 
   public double getPivotPositionDegrees() {
     return inputs.pivotPositionDegrees;
   }
 
-  public double getPivotVelocityDegreesPerSecond() {
-    return inputs.pivotVelocityDegreesPerSecond;
-  }
-
   public double getOutputCurrent() {
-    return inputs.outputCurrent;
+    return inputs.supplyCurrent;
   }
 
-  public void setPercent(double percent) {
-    io.setPercent(percent);
+  public void setVoltage(double voltage) {
+    io.setVoltage(voltage);
   }
 
   public void setPosition(double position) {
-    io.setVoltage(MathUtil.clamp(mPID.calculate(getPivotPositionDegrees(), position), -9, 9));
+    io.setVoltage(MathUtil.clamp(pidController.calculate(getPivotPositionDegrees(), position), -PivotConstants.kMaxVoltage, PivotConstants.kMaxVoltage));
   }
 
   public void setEncoderFromPivotDegrees(double pivotDegrees) {
     io.setEncoderPosition(pivotDegrees / 360 * PivotConstants.kGearRatio);
   }
 
+  public void setPivotState(PivotState pivotState) {
+    this.pivotState = pivotState;
+  }
 
+  public PivotState getPivotState() {
+    return this.pivotState;
+  }
 }

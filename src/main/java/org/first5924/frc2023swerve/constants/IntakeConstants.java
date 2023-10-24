@@ -4,12 +4,13 @@
 
 package org.first5924.frc2023swerve.constants;
 
-import edu.wpi.first.math.util.Units;
-
 /** Add your docs here. */
 public class IntakeConstants {
-    public static final double kGearRatio = 18/24;
-    public static final double kStartingDegrees = 0;
+    public static final int kTalonId = 12;
 
-
+    public static final double kPickupVoltage = 0;
+    public static final double kLowVoltage = 0;
+    public static final double kMidVoltage = 0;
+    public static final double kHighVoltage = 0;
+    public static final double kChargeVoltage = 0;
 }

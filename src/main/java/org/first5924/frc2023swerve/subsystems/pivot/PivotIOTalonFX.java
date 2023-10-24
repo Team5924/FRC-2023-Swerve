@@ -7,32 +7,40 @@ package org.first5924.frc2023swerve.subsystems.pivot;
 
 import org.first5924.frc2023swerve.constants.PivotConstants;
 
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 /** Add your docs here. */
 public class PivotIOTalonFX implements PivotIO {
     private final TalonFX pivotTalon = new TalonFX(0);
 
-    
-
     public PivotIOTalonFX() {
+        TalonFXConfiguration talonFXConfiguration = new TalonFXConfiguration();
 
+        MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs();
+        motorOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
+        motorOutputConfigs.NeutralMode = NeutralModeValue.Brake;
+        talonFXConfiguration.MotorOutput = motorOutputConfigs;
+
+        CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs();
+        currentLimitsConfigs.SupplyCurrentLimit = 20;
+        currentLimitsConfigs.SupplyCurrentThreshold = 20;
+        currentLimitsConfigs.SupplyTimeThreshold = 0.1;
+        currentLimitsConfigs.StatorCurrentLimitEnable = true;
+        talonFXConfiguration.CurrentLimits = currentLimitsConfigs;
+
+        pivotTalon.getConfigurator().apply(talonFXConfiguration);
     }
 
     @Override
     public void updateInputs(PivotIOInputs inputs) {
         inputs.pivotPositionDegrees = pivotTalon.getPosition().getValue() * 360 / PivotConstants.kGearRatio;
-        inputs.pivotVelocityDegreesPerSecond = pivotTalon.getVelocity().getValue() / 60 * 360 / PivotConstants.kGearRatio;
-        inputs.outputCurrent = pivotTalon.getSupplyCurrent().getValue();
-    }
-
-    @Override
-    public void setPercent(double percent) {
-        pivotTalon.set(percent);
+        inputs.pivotVelocityDegreesPerSecond = pivotTalon.getVelocity().getValue() * 360 / PivotConstants.kGearRatio;
+        inputs.supplyCurrent = pivotTalon.getSupplyCurrent().getValue();
     }
 
     @Override

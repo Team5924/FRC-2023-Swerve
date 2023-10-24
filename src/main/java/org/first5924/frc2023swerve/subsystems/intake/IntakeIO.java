@@ -9,18 +9,13 @@ import org.littletonrobotics.junction.AutoLog;
 public interface IntakeIO {
     @AutoLog
     public static class IntakeIOInputs {
-        public double intakePositionDegrees = 0.0;
-        public double intakeVelocityDegreesPerSecond = 0.0;
-        public double outputCurrent = 0.0;
+        public double supplyCurrent = 0.0;
     }
 
     /** Updates the set of loggable inputs */
     public default void updateInputs(IntakeIOInputs inputs) {
     }
 
-    public default void setPercent(double percent) {
-    }
-
-    public default void setEncoderPosition(double position) {
+    public default void setVoltage(double voltage) {
     }
 }

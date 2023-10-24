@@ -4,7 +4,6 @@
 
 package org.first5924.frc2023swerve.subsystems.intake;
 
-import org.first5924.frc2023swerve.constants.IntakeConstants;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,7 +17,6 @@ public class Intake extends SubsystemBase {
 
   public Intake(IntakeIO io) {
     this.io = io;
-    //setEncoderFromIntakeDegrees(IntakeConstants.kStartingDegrees);
   }
 
   @Override
@@ -28,26 +26,11 @@ public class Intake extends SubsystemBase {
     Logger.getInstance().processInputs("Intake", inputs);
   }
 
-  public double getPivotPositionDegrees() {
-    return inputs.intakePositionDegrees;
-  }
-
-  public double getPivotVelocityDegreesPerSecond() {
-    return inputs.intakeVelocityDegreesPerSecond;
+  public void setVoltage(double voltage) {
+    io.setVoltage(voltage);
   }
 
   public double getOutputCurrent() {
-    return inputs.outputCurrent;
+    return inputs.supplyCurrent;
   }
-
-  public void setPercent(double percent) {
-    io.setPercent(percent);
-  }
-
-
-  public void setEncoderFromPivotDegrees(double pivotDegrees) {
-    io.setEncoderPosition(pivotDegrees / 360 * IntakeConstants.kGearRatio);
-  }
-
-
 }
