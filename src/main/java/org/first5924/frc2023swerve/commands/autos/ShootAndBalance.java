@@ -31,7 +31,7 @@ public class ShootAndBalance extends SequentialCommandGroup {
       new SetPivotState(pivot, PivotState.LOW),
       new WaitCommand(1),
       new ParallelDeadlineGroup(
-        new WaitCommand(1),
+        new WaitCommand(0.5),
         new RunIntake(intake, pivot)
       ),
       new SetPivotState(pivot, PivotState.STOW),
