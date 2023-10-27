@@ -5,7 +5,7 @@
 package org.first5924.frc2023swerve.robot;
 
 import org.first5924.frc2023swerve.commands.autos.ShootAndBalance;
-import org.first5924.frc2023swerve.commands.autos.ShootCrossAndBalance;
+import org.first5924.frc2023swerve.commands.autos.ShootAndMobility;
 import org.first5924.frc2023swerve.commands.drive.DriveWithJoysticks;
 import org.first5924.frc2023swerve.commands.drive.SetGyroYaw;
 import org.first5924.frc2023swerve.constants.Constants;
@@ -82,8 +82,8 @@ public class RobotContainer {
     swerveModeChooser.addDefaultOption("Field Centric", true);
     swerveModeChooser.addOption("Robot Centric", false);
 
-    autoModeChooser.addDefaultOption("Shoot Cross and Balance", new ShootCrossAndBalance(drive, pivot, intake));
-    autoModeChooser.addOption("Shoot and Balance", new ShootAndBalance(drive, pivot, intake));
+    autoModeChooser.addDefaultOption("Shoot and Balance", new ShootAndBalance(drive, pivot, intake));
+    autoModeChooser.addDefaultOption("Shoot and Mobility", new ShootAndMobility(drive, pivot, intake));
 
     // Configure the button bindings
     configureButtonBindings();

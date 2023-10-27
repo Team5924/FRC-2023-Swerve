@@ -4,7 +4,7 @@
 
 package org.first5924.frc2023swerve.commands.autos;
 
-import org.first5924.frc2023swerve.commands.drive.EngageChargeStation;
+import org.first5924.frc2023swerve.commands.drive.SetGyroYaw;
 import org.first5924.frc2023swerve.commands.intake.RunIntake;
 import org.first5924.frc2023swerve.commands.pivot.SetPivotState;
 import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
@@ -20,25 +20,25 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShootCrossAndBalance extends SequentialCommandGroup {
+public class ShootAndMobility extends SequentialCommandGroup {
   /** Creates a new ScoreAndBalance. */
-  public ShootCrossAndBalance(Drive drive, Pivot pivot, Intake intake) {
+  public ShootAndMobility(Drive drive, Pivot pivot, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetPivotState(pivot, PivotState.MID),
+      new SetGyroYaw(drive, 180),
+      new SetPivotState(pivot, PivotState.LOW),
       new WaitCommand(1),
-      new RunIntake(intake, pivot),
       new ParallelDeadlineGroup(
-        new WaitCommand(5),
-        new DriveXDirectionFieldCentric(drive, 0.85)
+        new WaitCommand(0.5),
+        new RunIntake(intake, pivot)
       ),
-      new WaitCommand(0.05),
+      new SetPivotState(pivot, PivotState.STOW),
+      new WaitCommand(1),
       new ParallelDeadlineGroup(
-        new WaitCommand(1.75),
-        new DriveXDirectionFieldCentric(drive, -0.75)
-      ),
-      new EngageChargeStation(drive)
+        new WaitCommand(4),
+        new DriveXDirectionFieldCentric(drive, 1)
+      )
     );
   }
 }
