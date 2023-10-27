@@ -23,4 +23,7 @@ public interface PivotIO {
 
     public default void setEncoderPosition(double position) {
     }
+
+    public default void setBrakeMode(boolean enable) {
+    }
 }

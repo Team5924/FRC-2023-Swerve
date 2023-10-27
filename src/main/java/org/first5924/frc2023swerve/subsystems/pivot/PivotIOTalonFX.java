@@ -16,7 +16,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 /** Add your docs here. */
 public class PivotIOTalonFX implements PivotIO {
-    private final TalonFX pivotTalon = new TalonFX(0);
+    private final TalonFX pivotTalon = new TalonFX(PivotConstants.kTalonId);
 
     public PivotIOTalonFX() {
         TalonFXConfiguration talonFXConfiguration = new TalonFXConfiguration();
@@ -29,8 +29,8 @@ public class PivotIOTalonFX implements PivotIO {
         CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs();
         currentLimitsConfigs.SupplyCurrentLimit = 20;
         currentLimitsConfigs.SupplyCurrentThreshold = 20;
-        currentLimitsConfigs.SupplyTimeThreshold = 0.1;
-        currentLimitsConfigs.StatorCurrentLimitEnable = true;
+        currentLimitsConfigs.SupplyTimeThreshold = 0;
+        currentLimitsConfigs.SupplyCurrentLimitEnable = true;
         talonFXConfiguration.CurrentLimits = currentLimitsConfigs;
 
         pivotTalon.getConfigurator().apply(talonFXConfiguration);
@@ -52,4 +52,13 @@ public class PivotIOTalonFX implements PivotIO {
     public void setEncoderPosition(double position) {
         pivotTalon.setRotorPosition(position);
     }
+
+    @Override
+    public void setBrakeMode(boolean enable) {
+        MotorOutputConfigs motorOutputConfigs = new MotorOutputConfigs();
+        motorOutputConfigs.Inverted = InvertedValue.CounterClockwise_Positive;
+        motorOutputConfigs.NeutralMode = enable ? NeutralModeValue.Brake : NeutralModeValue.Coast;
+
+        pivotTalon.getConfigurator().apply(motorOutputConfigs);
+      }
 }

@@ -29,10 +29,10 @@ public class IntakeIOTalonFX implements IntakeIO {
         talonFXConfiguration.MotorOutput = motorOutputConfigs;
 
         CurrentLimitsConfigs currentLimitsConfigs = new CurrentLimitsConfigs();
-        currentLimitsConfigs.SupplyCurrentLimit = 20;
-        currentLimitsConfigs.SupplyCurrentThreshold = 20;
-        currentLimitsConfigs.SupplyTimeThreshold = 0.1;
-        currentLimitsConfigs.StatorCurrentLimitEnable = true;
+        currentLimitsConfigs.SupplyCurrentLimit = 40;
+        currentLimitsConfigs.SupplyCurrentThreshold = 40;
+        currentLimitsConfigs.SupplyTimeThreshold = 0;
+        currentLimitsConfigs.SupplyCurrentLimitEnable = true;
         talonFXConfiguration.CurrentLimits = currentLimitsConfigs;
 
         intakeTalon.getConfigurator().apply(talonFXConfiguration);

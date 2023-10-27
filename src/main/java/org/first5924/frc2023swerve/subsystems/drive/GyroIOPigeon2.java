@@ -9,6 +9,7 @@ package org.first5924.frc2023swerve.subsystems.drive;
 
 import org.first5924.frc2023swerve.constants.RobotConstants;
 
+import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.math.util.Units;
 
@@ -17,7 +18,11 @@ public class GyroIOPigeon2 implements GyroIO {
   private final Pigeon2 mPigeon2 = new Pigeon2(RobotConstants.kPigeonId);
 
   public GyroIOPigeon2() {
-    mPigeon2.setYaw(0.0);
+    MountPoseConfigs mountPoseConfigs = new MountPoseConfigs();
+    mountPoseConfigs.MountPoseYaw = -90;
+    mPigeon2.getConfigurator().apply(mountPoseConfigs);
+
+    mPigeon2.setYaw(180);
   }
 
   public void updateInputs(GyroIOInputs inputs) {
@@ -29,7 +34,7 @@ public class GyroIOPigeon2 implements GyroIO {
     inputs.rollVelocityRadPerSec = Units.degreesToRadians(mPigeon2.getAngularVelocityZ().getValue());
   }
 
-  public void zeroGyroYaw() {
-    mPigeon2.setYaw(0);
+  public void setGyroYaw(double yaw) {
+    mPigeon2.setYaw(yaw);
   }
 }

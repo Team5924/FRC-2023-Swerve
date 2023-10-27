@@ -4,8 +4,10 @@
 
 package org.first5924.frc2023swerve.robot;
 
+import org.first5924.frc2023swerve.commands.autos.ShootAndBalance;
+import org.first5924.frc2023swerve.commands.autos.ShootCrossAndBalance;
 import org.first5924.frc2023swerve.commands.drive.DriveWithJoysticks;
-import org.first5924.frc2023swerve.commands.drive.ZeroGyroYaw;
+import org.first5924.frc2023swerve.commands.drive.SetGyroYaw;
 import org.first5924.frc2023swerve.constants.Constants;
 import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
 import org.first5924.frc2023swerve.subsystems.drive.Drive;
@@ -21,10 +23,13 @@ import org.first5924.frc2023swerve.subsystems.pivot.PivotIO;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
 import org.first5924.frc2023swerve.commands.intake.RunIntake;
 import org.first5924.frc2023swerve.commands.pivot.PivotTrackSetpoint;
+import org.first5924.frc2023swerve.commands.pivot.SetEncoderFromPivotDegrees;
+import org.first5924.frc2023swerve.commands.pivot.SetPivotBrakeMode;
 import org.first5924.frc2023swerve.commands.pivot.SetPivotState;
 import org.first5924.frc2023swerve.subsystems.intake.IntakeIO;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -45,6 +50,7 @@ public class RobotContainer {
   private final CommandXboxController driverController = new CommandXboxController(0);
   private final CommandXboxController operatorController = new CommandXboxController(1);
   private final LoggedDashboardChooser<Boolean> swerveModeChooser = new LoggedDashboardChooser<>("Swerve Mode Chooser");
+  private final LoggedDashboardChooser<Command> autoModeChooser = new LoggedDashboardChooser<>("Auto Mode Chooser");
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -76,8 +82,15 @@ public class RobotContainer {
     swerveModeChooser.addDefaultOption("Field Centric", true);
     swerveModeChooser.addOption("Robot Centric", false);
 
+    autoModeChooser.addDefaultOption("Shoot Cross and Balance", new ShootCrossAndBalance(drive, pivot, intake));
+    autoModeChooser.addOption("Shoot and Balance", new ShootAndBalance(drive, pivot, intake));
+
     // Configure the button bindings
     configureButtonBindings();
+
+    SmartDashboard.putData("Set Pivot Brake Mode", new SetPivotBrakeMode(pivot, true));
+    SmartDashboard.putData("Set Pivot Coast Mode", new SetPivotBrakeMode(pivot, false));
+    SmartDashboard.putData("Zero Pivot Encoder", new SetEncoderFromPivotDegrees(pivot, 0));
   }
 
   /**
@@ -89,14 +102,15 @@ public class RobotContainer {
   private void configureButtonBindings() {
     drive.setDefaultCommand(
         new DriveWithJoysticks(drive, driverController::getLeftX, driverController::getLeftY, driverController::getRightX, swerveModeChooser::get));
-    driverController.a().onTrue(new ZeroGyroYaw(drive));
+    driverController.a().onTrue(new SetGyroYaw(drive, 0));
 
     operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
     operatorController.rightBumper().onTrue(new SetPivotState(pivot, PivotState.PICKUP));
-    operatorController.leftBumper().onTrue(new SetPivotState(pivot, PivotState.CHARGE));
+    operatorController.leftBumper().onTrue(new SetPivotState(pivot, PivotState.STOW));
     operatorController.y().onTrue(new SetPivotState(pivot, PivotState.HIGH));
     operatorController.b().onTrue(new SetPivotState(pivot, PivotState.MID));
     operatorController.a().onTrue(new SetPivotState(pivot, PivotState.LOW));
+    operatorController.x().onTrue(new SetPivotState(pivot, PivotState.CHARGE));
 
     pivot.setDefaultCommand(new PivotTrackSetpoint(pivot));
   }
@@ -107,6 +121,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return autoModeChooser.get();
   }
 }

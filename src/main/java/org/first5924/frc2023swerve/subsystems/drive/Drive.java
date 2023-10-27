@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import org.first5924.frc2023swerve.constants.DriveConstants;
@@ -68,6 +69,7 @@ public class Drive extends SubsystemBase {
   }
 
   public void periodic() {
+    SmartDashboard.putNumber("Pitch degrees", getPitch().getDegrees());
     gyroIO.updateInputs(gyroInputs);
     Logger.getInstance().processInputs("Drive/Gyro", gyroInputs);
     for (var module : modules) {
@@ -112,8 +114,8 @@ public class Drive extends SubsystemBase {
     }
   }
 
-  public void zeroGyroYaw() {
-    gyroIO.zeroGyroYaw();
+  public void setGyroYaw(double yaw) {
+    gyroIO.setGyroYaw(yaw);
   }
 
   /** Returns the current pitch (Y rotation). */

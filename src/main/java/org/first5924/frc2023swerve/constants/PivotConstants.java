@@ -4,6 +4,8 @@
 
 package org.first5924.frc2023swerve.constants;
 
+import org.first5924.frc2023swerve.subsystems.intake.Intake;
+
 /** Add your docs here. */
 public class PivotConstants {
     public static final int kTalonId = 13;
@@ -11,20 +13,26 @@ public class PivotConstants {
     public static final double kGearRatio = 118.8;
     public static final double kStartingDegrees = 0;
 
-    public static final double kMaxVoltage = 8;
+    public static final double kMaxVoltage = 7.5;
 
-    public static final double kPickupAngle = 0;
-    public static final double kLowAngle = 0;
-    public static final double kMidAngle = 0;
-    public static final double kHighAngle = 0;
-    public static final double kChargeAngle = 0;
+    public static final double kP = 0.65;
+    public static final double kI = 0;
+    public static final double kD = 0;
+
+    public static final double kPickupAngle = 125;
+    public static final double kLowAngle = 117.5;
+    public static final double kMidAngle = 12.5;
+    public static final double kHighAngle = 5;
+    public static final double kChargeAngle = 25;
+    public static final double kStowAngle = 0;
 
     public static enum PivotState {
         PICKUP(kPickupAngle, IntakeConstants.kPickupVoltage),
         LOW(kLowAngle, IntakeConstants.kLowVoltage),
         MID(kMidAngle, IntakeConstants.kMidVoltage),
         HIGH(kHighAngle, IntakeConstants.kHighVoltage),
-        CHARGE(kChargeAngle, IntakeConstants.kChargeVoltage);
+        CHARGE(kChargeAngle, IntakeConstants.kChargeVoltage),
+        STOW(kStowAngle, IntakeConstants.kStowVoltage);
 
         private final double pivotAngle;
         private final double intakeVoltage;

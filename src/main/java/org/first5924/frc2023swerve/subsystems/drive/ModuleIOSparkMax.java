@@ -15,6 +15,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 
@@ -25,7 +26,6 @@ public class ModuleIOSparkMax implements ModuleIO {
   private final CANSparkMax turnSparkMax;
 
   private final RelativeEncoder driveEncoder;
-  private final RelativeEncoder turnEncoder;
   private final CANcoder turnAbsoluteEncoder;
 
   private final boolean isTurnMotorInverted = true;
@@ -62,7 +62,6 @@ public class ModuleIOSparkMax implements ModuleIO {
     }
 
     driveEncoder = driveSparkMax.getEncoder();
-    turnEncoder = turnSparkMax.getEncoder();
 
     MagnetSensorConfigs magnetSensorConfigs = new MagnetSensorConfigs();
     magnetSensorConfigs.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
@@ -80,12 +79,24 @@ public class ModuleIOSparkMax implements ModuleIO {
     driveEncoder.setMeasurementPeriod(10);
     driveEncoder.setAverageDepth(2);
 
-    turnEncoder.setPosition(0.0);
-    turnEncoder.setMeasurementPeriod(10);
-    turnEncoder.setAverageDepth(2);
-
     driveSparkMax.setCANTimeout(0);
     turnSparkMax.setCANTimeout(0);
+
+    driveSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 500);
+    driveSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 50);
+    driveSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 10);
+    driveSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
+    driveSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
+    driveSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
+    driveSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
+
+    turnSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 500);
+    turnSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 50);
+    turnSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+    turnSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 500);
+    turnSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 500);
+    turnSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 500);
+    turnSparkMax.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 500);
   }
 
   public void updateInputs(ModuleIOInputs inputs) {
@@ -95,8 +106,6 @@ public class ModuleIOSparkMax implements ModuleIO {
     inputs.driveTempCelcius = driveSparkMax.getMotorTemperature();
 
     inputs.turnAbsolutePositionRad = Units.rotationsToRadians(turnAbsoluteEncoder.getAbsolutePosition().getValue());
-    inputs.turnPositionRad = Units.rotationsToRadians(turnEncoder.getPosition()) * DriveConstants.kEncoderToTurnReduction;
-    inputs.turnVelocityRadPerSec = Units.rotationsPerMinuteToRadiansPerSecond(turnEncoder.getVelocity()) * DriveConstants.kEncoderToTurnReduction;
     inputs.turnCurrentAmps = turnSparkMax.getOutputCurrent();
     inputs.turnTempCelcius = turnSparkMax.getMotorTemperature();
   }

@@ -8,9 +8,10 @@ package org.first5924.frc2023swerve.constants;
 public class IntakeConstants {
     public static final int kTalonId = 12;
 
-    public static final double kPickupVoltage = 0;
-    public static final double kLowVoltage = 0;
-    public static final double kMidVoltage = 0;
-    public static final double kHighVoltage = 0;
-    public static final double kChargeVoltage = 0;
+    public static final double kPickupVoltage = -5;
+    public static final double kLowVoltage = 3;
+    public static final double kMidVoltage = 4.5;
+    public static final double kHighVoltage = 12;
+    public static final double kStowVoltage = -5;
+    public static final double kChargeVoltage = 12;
 }

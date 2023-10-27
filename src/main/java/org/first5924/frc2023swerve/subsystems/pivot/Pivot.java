@@ -10,6 +10,7 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -17,8 +18,8 @@ public class Pivot extends SubsystemBase {
   /** Creates a new PivotSubsystem. */
   private final PivotIO io;
   private final PivotIOInputsAutoLogged inputs = new PivotIOInputsAutoLogged();
-  private final PIDController pidController = new PIDController(0.4, 0, 0);
-  private PivotState pivotState = PivotState.HIGH;
+  private final PIDController pidController = new PIDController(PivotConstants.kP, PivotConstants.kI, PivotConstants.kD);
+  private PivotState pivotState = PivotState.STOW;
 
   public Pivot(PivotIO io) {
     this.io = io;
@@ -30,7 +31,7 @@ public class Pivot extends SubsystemBase {
     // This method will be called once per scheduler run
     io.updateInputs(inputs);
     Logger.getInstance().processInputs("Pivot", inputs);
-    Logger.getInstance().recordOutput("Pivot/State", getPivotState().toString());
+    SmartDashboard.putString("Pivot State", pivotState.toString());
   }
 
   public double getPivotPositionDegrees() {
@@ -46,11 +47,17 @@ public class Pivot extends SubsystemBase {
   }
 
   public void setPosition(double position) {
-    io.setVoltage(MathUtil.clamp(pidController.calculate(getPivotPositionDegrees(), position), -PivotConstants.kMaxVoltage, PivotConstants.kMaxVoltage));
+    double voltage = MathUtil.clamp(pidController.calculate(getPivotPositionDegrees(), position), -PivotConstants.kMaxVoltage, PivotConstants.kMaxVoltage);
+    SmartDashboard.putNumber("Pivot Voltage", voltage);
+    io.setVoltage(voltage);
   }
 
   public void setEncoderFromPivotDegrees(double pivotDegrees) {
     io.setEncoderPosition(pivotDegrees / 360 * PivotConstants.kGearRatio);
+  }
+
+  public void setBrakeMode(boolean enable) {
+    io.setBrakeMode(enable);
   }
 
   public void setPivotState(PivotState pivotState) {
