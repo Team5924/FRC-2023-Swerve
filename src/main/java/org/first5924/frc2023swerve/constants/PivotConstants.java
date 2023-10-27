@@ -4,8 +4,6 @@
 
 package org.first5924.frc2023swerve.constants;
 
-import org.first5924.frc2023swerve.subsystems.intake.Intake;
-
 /** Add your docs here. */
 public class PivotConstants {
     public static final int kTalonId = 13;
