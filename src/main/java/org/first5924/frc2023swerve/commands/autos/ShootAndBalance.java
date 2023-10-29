@@ -37,8 +37,8 @@ public class ShootAndBalance extends SequentialCommandGroup {
       new SetPivotState(pivot, PivotState.STOW),
       new WaitCommand(1),
       new ParallelDeadlineGroup(
-        new WaitCommand(2.3),
-        new DriveXDirectionFieldCentric(drive, 1)
+        new WaitCommand(1.6),
+        new DriveXDirectionFieldCentric(drive, 1.6)
       ),
       new EngageChargeStation(drive)
     );

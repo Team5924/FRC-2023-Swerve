@@ -22,6 +22,7 @@ import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIO;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
 import org.first5924.frc2023swerve.commands.intake.RunIntake;
+import org.first5924.frc2023swerve.commands.intake.Scoot;
 import org.first5924.frc2023swerve.commands.pivot.PivotTrackSetpoint;
 import org.first5924.frc2023swerve.commands.pivot.SetEncoderFromPivotDegrees;
 import org.first5924.frc2023swerve.commands.pivot.SetPivotBrakeMode;
@@ -105,6 +106,7 @@ public class RobotContainer {
     driverController.a().onTrue(new SetGyroYaw(drive, 0));
 
     operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
+    operatorController.leftTrigger().whileTrue(new Scoot(intake));
     operatorController.rightBumper().onTrue(new SetPivotState(pivot, PivotState.PICKUP));
     operatorController.leftBumper().onTrue(new SetPivotState(pivot, PivotState.STOW));
     operatorController.y().onTrue(new SetPivotState(pivot, PivotState.HIGH));

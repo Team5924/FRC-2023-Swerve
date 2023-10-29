@@ -30,7 +30,7 @@ public class EngageChargeStation extends CommandBase {
   @Override
   public void execute() {
     if (isWaitingForSettle) {
-      if (Timer.getFPGATimestamp() >= startSettleTimestamp + 1.15) {
+      if (Timer.getFPGATimestamp() >= startSettleTimestamp + 0.5) {
         isWaitingForSettle = false;
       }
     } else {

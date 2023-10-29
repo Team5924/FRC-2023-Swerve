@@ -36,7 +36,7 @@ public class ShootAndMobility extends SequentialCommandGroup {
       new SetPivotState(pivot, PivotState.STOW),
       new WaitCommand(1),
       new ParallelDeadlineGroup(
-        new WaitCommand(4),
+        new WaitCommand(3.75),
         new DriveXDirectionFieldCentric(drive, 1)
       )
     );
