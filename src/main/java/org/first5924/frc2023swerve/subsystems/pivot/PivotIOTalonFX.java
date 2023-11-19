@@ -50,7 +50,7 @@ public class PivotIOTalonFX implements PivotIO {
 
     @Override
     public void setEncoderPosition(double position) {
-        pivotTalon.setRotorPosition(position);
+        pivotTalon.setPosition(position);
     }
 
     @Override

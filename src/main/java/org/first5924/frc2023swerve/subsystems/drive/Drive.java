@@ -71,7 +71,7 @@ public class Drive extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Pitch degrees", getPitch().getDegrees());
     gyroIO.updateInputs(gyroInputs);
-    Logger.getInstance().processInputs("Drive/Gyro", gyroInputs);
+    Logger.processInputs("Drive/Gyro", gyroInputs);
     for (var module : modules) {
       module.periodic();
     }

@@ -37,7 +37,7 @@ public class Module {
   /** Updates inputs and checks tunable numbers. */
   public void periodic() {
     io.updateInputs(inputs);
-    Logger.getInstance().processInputs("Drive/Module" + Integer.toString(index), inputs);
+    Logger.processInputs("Drive/Module" + Integer.toString(index), inputs);
   }
 
   /**
