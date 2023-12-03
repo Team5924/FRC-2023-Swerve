@@ -5,17 +5,16 @@
 package org.first5924.frc2023swerve.subsystems.intake;
 
 import org.littletonrobotics.junction.AutoLog;
+
 /** Add your docs here. */
 public interface IntakeIO {
-    @AutoLog
-    public static class IntakeIOInputs {
-        public double supplyCurrent = 0.0;
-    }
+  @AutoLog
+  public static class IntakeIOInputs {
+    public double supplyCurrent = 0.0;
+  }
 
-    /** Updates the set of loggable inputs */
-    public default void updateInputs(IntakeIOInputs inputs) {
-    }
+  /** Updates the set of loggable inputs */
+  public default void updateInputs(IntakeIOInputs inputs) {}
 
-    public default void setVoltage(double voltage) {
-    }
+  public default void setVoltage(double voltage) {}
 }

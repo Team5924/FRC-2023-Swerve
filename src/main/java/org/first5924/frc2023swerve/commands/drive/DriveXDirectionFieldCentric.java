@@ -4,11 +4,10 @@
 
 package org.first5924.frc2023swerve.commands.drive;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import org.first5924.frc2023swerve.subsystems.drive.Drive;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-public class DriveXDirectionFieldCentric extends CommandBase {
+public class DriveXDirectionFieldCentric extends Command {
   private final Drive drive;
   private final double speed;
 

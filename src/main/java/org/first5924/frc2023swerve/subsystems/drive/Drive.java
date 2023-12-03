@@ -16,9 +16,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import org.first5924.frc2023swerve.constants.DriveConstants;
-import org.first5924.frc2023swerve.subsystems.drive.GyroIOInputsAutoLogged;
 import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase {
@@ -31,11 +29,12 @@ public class Drive extends SubsystemBase {
   private final GyroIOInputsAutoLogged gyroInputs = new GyroIOInputsAutoLogged();
   private final Module[] modules = new Module[4]; // FL, BL, BR, FR
 
-  private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
-    new Translation2d(DriveConstants.kTrackWidthX / 2, DriveConstants.kTrackWidthY / 2),
-    new Translation2d(DriveConstants.kTrackWidthX / 2, -DriveConstants.kTrackWidthY / 2),
-    new Translation2d(-DriveConstants.kTrackWidthX / 2, DriveConstants.kTrackWidthY / 2),
-    new Translation2d(-DriveConstants.kTrackWidthX / 2, -DriveConstants.kTrackWidthY / 2));
+  private SwerveDriveKinematics kinematics =
+      new SwerveDriveKinematics(
+          new Translation2d(DriveConstants.kTrackWidthX / 2, DriveConstants.kTrackWidthY / 2),
+          new Translation2d(DriveConstants.kTrackWidthX / 2, -DriveConstants.kTrackWidthY / 2),
+          new Translation2d(-DriveConstants.kTrackWidthX / 2, DriveConstants.kTrackWidthY / 2),
+          new Translation2d(-DriveConstants.kTrackWidthX / 2, -DriveConstants.kTrackWidthY / 2));
 
   private boolean isBrakeMode = false;
   private Timer lastMovementTimer = new Timer();
@@ -57,10 +56,19 @@ public class Drive extends SubsystemBase {
     }
   }
 
-  public void drive(double vxMetersPerSecond, double vyMetersPerSecond, double omegaRadiansPerSecond, boolean fieldCentric) {
-    ChassisSpeeds speeds = fieldCentric
-      ? ChassisSpeeds.fromFieldRelativeSpeeds(vxMetersPerSecond, vyMetersPerSecond, omegaRadiansPerSecond, new Rotation2d(gyroInputs.yawPositionRad))
-      : new ChassisSpeeds(vxMetersPerSecond, vyMetersPerSecond, omegaRadiansPerSecond);
+  public void drive(
+      double vxMetersPerSecond,
+      double vyMetersPerSecond,
+      double omegaRadiansPerSecond,
+      boolean fieldCentric) {
+    ChassisSpeeds speeds =
+        fieldCentric
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                vxMetersPerSecond,
+                vyMetersPerSecond,
+                omegaRadiansPerSecond,
+                new Rotation2d(gyroInputs.yawPositionRad))
+            : new ChassisSpeeds(vxMetersPerSecond, vyMetersPerSecond, omegaRadiansPerSecond);
     SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(speeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, DriveConstants.kMaxLinearSpeed);
     for (int i = 0; i < 4; i++) {
@@ -81,7 +89,7 @@ public class Drive extends SubsystemBase {
       // Stop moving while disabled
       stop();
     } else {
-    // Update brake mode
+      // Update brake mode
       boolean stillMoving = false;
       for (int i = 0; i < 4; i++) {
         if (Math.abs(modules[i].getVelocityMetersPerSec()) > coastThresholdMetersPerSec) {

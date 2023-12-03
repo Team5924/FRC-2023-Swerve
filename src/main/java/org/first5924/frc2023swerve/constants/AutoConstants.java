@@ -6,5 +6,5 @@ package org.first5924.frc2023swerve.constants;
 
 /** Add your docs here. */
 public class AutoConstants {
-    public static final double kMaxSettlePitchDegrees = 11;
+  public static final double kMaxSettlePitchDegrees = 11;
 }

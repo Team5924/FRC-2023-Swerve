@@ -4,16 +4,14 @@
 
 package org.first5924.frc2023swerve.subsystems.intake;
 
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import org.littletonrobotics.junction.Logger;
 
 public class Intake extends SubsystemBase {
   /** Creates a new PivotSubsystem. */
   private final IntakeIO io;
-  private final IntakeIOInputsAutoLogged inputs = new IntakeIOInputsAutoLogged();
 
+  private final IntakeIOInputsAutoLogged inputs = new IntakeIOInputsAutoLogged();
 
   public Intake(IntakeIO io) {
     this.io = io;

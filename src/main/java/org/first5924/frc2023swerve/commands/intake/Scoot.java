@@ -4,12 +4,11 @@
 
 package org.first5924.frc2023swerve.commands.intake;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpilibj2.command.Command;
 import org.first5924.frc2023swerve.constants.IntakeConstants;
 import org.first5924.frc2023swerve.subsystems.intake.Intake;
 
-public class Scoot extends CommandBase {
+public class Scoot extends Command {
   /** Creates a new RunIntake. */
   private final Intake intake;
 

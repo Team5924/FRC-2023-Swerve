@@ -13,9 +13,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-
 import org.first5924.frc2023swerve.constants.DriveConstants;
-import org.first5924.frc2023swerve.subsystems.drive.ModuleIOInputsAutoLogged;
 import org.littletonrobotics.junction.Logger;
 
 public class Module {
@@ -23,9 +21,12 @@ public class Module {
   private final ModuleIOInputsAutoLogged inputs = new ModuleIOInputsAutoLogged();
   private final int index;
 
-  private final SimpleMotorFeedforward driveFeedforward = new SimpleMotorFeedforward(DriveConstants.kDriveKs, DriveConstants.kDriveKv);
-  private final PIDController driveFeedback = new PIDController(DriveConstants.kDriveKp, 0.0, DriveConstants.kDriveKd);
-  private final PIDController turnFeedback = new PIDController(DriveConstants.kTurnKp, 0.0, DriveConstants.kTurnKd);
+  private final SimpleMotorFeedforward driveFeedforward =
+      new SimpleMotorFeedforward(DriveConstants.kDriveKs, DriveConstants.kDriveKv);
+  private final PIDController driveFeedback =
+      new PIDController(DriveConstants.kDriveKp, 0.0, DriveConstants.kDriveKd);
+  private final PIDController turnFeedback =
+      new PIDController(DriveConstants.kTurnKp, 0.0, DriveConstants.kTurnKd);
 
   public Module(ModuleIO io, int index) {
     this.io = io;
@@ -49,14 +50,17 @@ public class Module {
     SwerveModuleState optimizedState = SwerveModuleState.optimize(state, getAngle());
 
     // Run turn controller
-    io.setTurnVoltage(turnFeedback.calculate(getAngle().getRadians(), optimizedState.angle.getRadians()));
+    io.setTurnVoltage(
+        turnFeedback.calculate(getAngle().getRadians(), optimizedState.angle.getRadians()));
 
     // Update velocity based on turn error
     optimizedState.speedMetersPerSecond *= Math.cos(turnFeedback.getPositionError());
 
     // Run drive controller
     double velocityRadPerSec = optimizedState.speedMetersPerSecond / DriveConstants.kWheelRadius;
-    io.setDriveVoltage(driveFeedforward.calculate(velocityRadPerSec) + driveFeedback.calculate(inputs.driveVelocityRadPerSec, velocityRadPerSec));
+    io.setDriveVoltage(
+        driveFeedforward.calculate(velocityRadPerSec)
+            + driveFeedback.calculate(inputs.driveVelocityRadPerSec, velocityRadPerSec));
 
     return optimizedState;
   }

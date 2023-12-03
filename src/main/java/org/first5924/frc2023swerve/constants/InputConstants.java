@@ -6,8 +6,8 @@ package org.first5924.frc2023swerve.constants;
 
 /** Add your docs here. */
 public class InputConstants {
-    public static final int kDriverControllerPort = 0;
-    public static final int kOperatorControllerPort = 1;
+  public static final int kDriverControllerPort = 0;
+  public static final int kOperatorControllerPort = 1;
 
-    public static final double kDriveDeadband = 0.1;
+  public static final double kDriveDeadband = 0.1;
 }

@@ -7,19 +7,17 @@
 
 package org.first5924.frc2023swerve.subsystems.drive;
 
-import org.first5924.frc2023swerve.constants.DriveConstants;
-import org.first5924.frc2023swerve.constants.RobotConstants;
-
 import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.math.util.Units;
+import org.first5924.frc2023swerve.constants.DriveConstants;
+import org.first5924.frc2023swerve.constants.RobotConstants;
 
 public class ModuleIOSparkMax implements ModuleIO {
   private final CANSparkMax driveSparkMax;
@@ -34,13 +32,15 @@ public class ModuleIOSparkMax implements ModuleIO {
   public ModuleIOSparkMax(int index) {
     switch (index) {
       case 0:
-        driveSparkMax = new CANSparkMax(DriveConstants.kLeftFrontDriveSparkId, MotorType.kBrushless);
+        driveSparkMax =
+            new CANSparkMax(DriveConstants.kLeftFrontDriveSparkId, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(DriveConstants.kLeftFrontTurnSparkId, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(DriveConstants.kLeftFrontCANCoderId);
         absoluteEncoderOffsetRad = DriveConstants.kLeftFrontAbsoluteEncoderOffsetRad;
         break;
       case 1:
-        driveSparkMax = new CANSparkMax(DriveConstants.kRightFrontDriveSparkId, MotorType.kBrushless);
+        driveSparkMax =
+            new CANSparkMax(DriveConstants.kRightFrontDriveSparkId, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(DriveConstants.kRightFrontTurnSparkId, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(DriveConstants.kRightFrontCANCoderId);
         absoluteEncoderOffsetRad = DriveConstants.kRightFrontAbsoluteEncoderOffsetRad;
@@ -52,7 +52,8 @@ public class ModuleIOSparkMax implements ModuleIO {
         absoluteEncoderOffsetRad = DriveConstants.kLeftBackAbsoluteEncoderOffsetRad;
         break;
       case 3:
-        driveSparkMax = new CANSparkMax(DriveConstants.kRightBackDriveSparkId, MotorType.kBrushless);
+        driveSparkMax =
+            new CANSparkMax(DriveConstants.kRightBackDriveSparkId, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(DriveConstants.kRightBackTurnSparkId, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(DriveConstants.kRightBackCANCoderId);
         absoluteEncoderOffsetRad = DriveConstants.kRightBackAbsoluteEncoderOffsetRad;
@@ -100,12 +101,17 @@ public class ModuleIOSparkMax implements ModuleIO {
   }
 
   public void updateInputs(ModuleIOInputs inputs) {
-    inputs.drivePositionRad = Units.rotationsToRadians(driveEncoder.getPosition()) * DriveConstants.kEncoderToDriveReduction;
-    inputs.driveVelocityRadPerSec = Units.rotationsPerMinuteToRadiansPerSecond(driveEncoder.getVelocity()) * DriveConstants.kEncoderToDriveReduction;
+    inputs.drivePositionRad =
+        Units.rotationsToRadians(driveEncoder.getPosition())
+            * DriveConstants.kEncoderToDriveReduction;
+    inputs.driveVelocityRadPerSec =
+        Units.rotationsPerMinuteToRadiansPerSecond(driveEncoder.getVelocity())
+            * DriveConstants.kEncoderToDriveReduction;
     inputs.driveCurrentAmps = driveSparkMax.getOutputCurrent();
     inputs.driveTempCelcius = driveSparkMax.getMotorTemperature();
 
-    inputs.turnAbsolutePositionRad = Units.rotationsToRadians(turnAbsoluteEncoder.getAbsolutePosition().getValue());
+    inputs.turnAbsolutePositionRad =
+        Units.rotationsToRadians(turnAbsoluteEncoder.getAbsolutePosition().getValue());
     inputs.turnCurrentAmps = turnSparkMax.getOutputCurrent();
     inputs.turnTempCelcius = turnSparkMax.getMotorTemperature();
   }

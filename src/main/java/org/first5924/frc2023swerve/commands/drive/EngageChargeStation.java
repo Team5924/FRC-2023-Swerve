@@ -4,13 +4,12 @@
 
 package org.first5924.frc2023swerve.commands.drive;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
 import org.first5924.frc2023swerve.constants.AutoConstants;
 import org.first5924.frc2023swerve.subsystems.drive.Drive;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-public class EngageChargeStation extends CommandBase {
+public class EngageChargeStation extends Command {
   private final Drive drive;
   private double startSettleTimestamp;
   private boolean isWaitingForSettle = false;

@@ -4,10 +4,9 @@
 
 package org.first5924.frc2023swerve.commands.pivot;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
 import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
-
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

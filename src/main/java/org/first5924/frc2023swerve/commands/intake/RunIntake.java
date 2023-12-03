@@ -4,13 +4,14 @@
 
 package org.first5924.frc2023swerve.commands.intake;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import org.first5924.frc2023swerve.subsystems.intake.Intake;
 import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 
-public class RunIntake extends CommandBase {
+public class RunIntake extends Command {
   /** Creates a new RunIntake. */
   private final Intake intake;
+
   private final Pivot pivot;
 
   public RunIntake(Intake intake, Pivot pivot) {

@@ -4,9 +4,8 @@
 
 package org.first5924.frc2023swerve.commands.drive;
 
-import org.first5924.frc2023swerve.subsystems.drive.Drive;
-
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import org.first5924.frc2023swerve.subsystems.drive.Drive;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

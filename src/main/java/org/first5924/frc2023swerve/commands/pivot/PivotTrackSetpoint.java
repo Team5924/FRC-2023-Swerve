@@ -4,11 +4,10 @@
 
 package org.first5924.frc2023swerve.commands.pivot;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-public class PivotTrackSetpoint extends CommandBase {
+public class PivotTrackSetpoint extends Command {
   private final Pivot pivot;
 
   /** Creates a new SetPivot. */
@@ -21,8 +20,7 @@ public class PivotTrackSetpoint extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

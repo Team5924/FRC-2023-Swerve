@@ -7,11 +7,10 @@
 
 package org.first5924.frc2023swerve.subsystems.drive;
 
-import org.first5924.frc2023swerve.constants.RobotConstants;
-
 import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.math.util.Units;
+import org.first5924.frc2023swerve.constants.RobotConstants;
 
 /** IO implementation for Pigeon2 */
 public class GyroIOPigeon2 implements GyroIO {
@@ -29,9 +28,11 @@ public class GyroIOPigeon2 implements GyroIO {
     inputs.pitchPositionRad = Units.degreesToRadians(mPigeon2.getPitch().getValue());
     inputs.yawPositionRad = Units.degreesToRadians(mPigeon2.getYaw().getValue());
     inputs.rollPositionRad = Units.degreesToRadians(mPigeon2.getYaw().getValue());
-    inputs.pitchVelocityRadPerSec = Units.degreesToRadians(mPigeon2.getAngularVelocityX().getValue());
+    inputs.pitchVelocityRadPerSec =
+        Units.degreesToRadians(mPigeon2.getAngularVelocityX().getValue());
     inputs.yawVelocityRadPerSec = Units.degreesToRadians(mPigeon2.getAngularVelocityY().getValue());
-    inputs.rollVelocityRadPerSec = Units.degreesToRadians(mPigeon2.getAngularVelocityZ().getValue());
+    inputs.rollVelocityRadPerSec =
+        Units.degreesToRadians(mPigeon2.getAngularVelocityZ().getValue());
   }
 
   public void setGyroYaw(double yaw) {

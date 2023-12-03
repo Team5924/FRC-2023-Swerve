@@ -4,21 +4,21 @@
 
 package org.first5924.frc2023swerve.subsystems.pivot;
 
-import org.first5924.frc2023swerve.constants.PivotConstants;
-import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import org.first5924.frc2023swerve.constants.PivotConstants;
+import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
+import org.littletonrobotics.junction.Logger;
 
 public class Pivot extends SubsystemBase {
   /** Creates a new PivotSubsystem. */
   private final PivotIO io;
+
   private final PivotIOInputsAutoLogged inputs = new PivotIOInputsAutoLogged();
-  private final PIDController pidController = new PIDController(PivotConstants.kP, PivotConstants.kI, PivotConstants.kD);
+  private final PIDController pidController =
+      new PIDController(PivotConstants.kP, PivotConstants.kI, PivotConstants.kD);
   private PivotState pivotState = PivotState.STOW;
 
   public Pivot(PivotIO io) {
@@ -47,7 +47,11 @@ public class Pivot extends SubsystemBase {
   }
 
   public void setPosition(double position) {
-    double voltage = MathUtil.clamp(pidController.calculate(getPivotPositionDegrees(), position), -PivotConstants.kMaxVoltage, PivotConstants.kMaxVoltage);
+    double voltage =
+        MathUtil.clamp(
+            pidController.calculate(getPivotPositionDegrees(), position),
+            -PivotConstants.kMaxVoltage,
+            PivotConstants.kMaxVoltage);
     SmartDashboard.putNumber("Pivot Voltage", voltage);
     io.setVoltage(voltage);
   }
