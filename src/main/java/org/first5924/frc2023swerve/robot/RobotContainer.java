@@ -5,7 +5,7 @@
 package org.first5924.frc2023swerve.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
+// import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -14,25 +14,25 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import org.first5924.frc2023swerve.commands.drive.DriveWithJoysticks;
 import org.first5924.frc2023swerve.commands.drive.SetGyroYaw;
-import org.first5924.frc2023swerve.commands.intake.RunIntake;
-import org.first5924.frc2023swerve.commands.intake.Scoot;
-import org.first5924.frc2023swerve.commands.pivot.PivotTrackSetpoint;
-import org.first5924.frc2023swerve.commands.pivot.SetEncoderFromPivotDegrees;
-import org.first5924.frc2023swerve.commands.pivot.SetPivotBrakeMode;
-import org.first5924.frc2023swerve.commands.pivot.SetPivotState;
+// import org.first5924.frc2023swerve.commands.intake.RunIntake;
+// import org.first5924.frc2023swerve.commands.intake.Scoot;
+// import org.first5924.frc2023swerve.commands.pivot.PivotTrackSetpoint;
+// import org.first5924.frc2023swerve.commands.pivot.SetEncoderFromPivotDegrees;
+// import org.first5924.frc2023swerve.commands.pivot.SetPivotBrakeMode;
+// import org.first5924.frc2023swerve.commands.pivot.SetPivotState;
 import org.first5924.frc2023swerve.constants.Constants;
-import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
+// import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
 import org.first5924.frc2023swerve.subsystems.drive.Drive;
 import org.first5924.frc2023swerve.subsystems.drive.GyroIO;
 import org.first5924.frc2023swerve.subsystems.drive.GyroIOPigeon2;
 import org.first5924.frc2023swerve.subsystems.drive.ModuleIO;
 import org.first5924.frc2023swerve.subsystems.drive.ModuleIOSparkMax;
-import org.first5924.frc2023swerve.subsystems.intake.Intake;
-import org.first5924.frc2023swerve.subsystems.intake.IntakeIO;
-import org.first5924.frc2023swerve.subsystems.intake.IntakeIOTalonFX;
-import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
-import org.first5924.frc2023swerve.subsystems.pivot.PivotIO;
-import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
+// import org.first5924.frc2023swerve.subsystems.intake.Intake;
+// import org.first5924.frc2023swerve.subsystems.intake.IntakeIO;
+// import org.first5924.frc2023swerve.subsystems.intake.IntakeIOTalonFX;
+// import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
+// import org.first5924.frc2023swerve.subsystems.pivot.PivotIO;
+// import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -44,12 +44,12 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-  private final Intake intake;
-  private final Pivot pivot;
+  // private final Intake intake;
+  // private final Pivot pivot;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
-  private final CommandXboxController operatorController = new CommandXboxController(1);
+  // private final CommandXboxController operatorController = new CommandXboxController(1);
   private final LoggedDashboardChooser<Boolean> swerveModeChooser =
       new LoggedDashboardChooser<>("Swerve Mode Chooser");
   private final SendableChooser<Command> autoModeChooser;
@@ -65,8 +65,8 @@ public class RobotContainer {
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3));
-        intake = new Intake(new IntakeIOTalonFX());
-        pivot = new Pivot(new PivotIOTalonFX());
+        // intake = new Intake(new IntakeIOTalonFX());
+        // pivot = new Pivot(new PivotIOTalonFX());
         break;
 
         // Sim robot, instantiate physics sim IO implementations
@@ -78,8 +78,8 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
-        intake = new Intake(new IntakeIO() {});
-        pivot = new Pivot(new PivotIO() {});
+        // intake = new Intake(new IntakeIO() {});
+        // pivot = new Pivot(new PivotIO() {});
         break;
 
         // Replayed robot, disable IO implementations
@@ -91,15 +91,15 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
-        intake = new Intake(new IntakeIO() {});
-        pivot = new Pivot(new PivotIO() {});
+        // intake = new Intake(new IntakeIO() {});
+        // pivot = new Pivot(new PivotIO() {});
         break;
     }
 
-    NamedCommands.registerCommand("setPivotPickup", new SetPivotState(pivot, PivotState.PICKUP));
-    NamedCommands.registerCommand("setPivotLow", new SetPivotState(pivot, PivotState.LOW));
-    NamedCommands.registerCommand("setPivotStow", new SetPivotState(pivot, PivotState.STOW));
-    NamedCommands.registerCommand("runIntake", new RunIntake(intake, pivot));
+    // NamedCommands.registerCommand("setPivotPickup", new SetPivotState(pivot, PivotState.PICKUP));
+    // NamedCommands.registerCommand("setPivotLow", new SetPivotState(pivot, PivotState.LOW));
+    // NamedCommands.registerCommand("setPivotStow", new SetPivotState(pivot, PivotState.STOW));
+    // NamedCommands.registerCommand("runIntake", new RunIntake(intake, pivot));
 
     swerveModeChooser.addDefaultOption("Field Centric", true);
     swerveModeChooser.addOption("Robot Centric", false);
@@ -110,9 +110,9 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    SmartDashboard.putData("Set Pivot Brake Mode", new SetPivotBrakeMode(pivot, true));
-    SmartDashboard.putData("Set Pivot Coast Mode", new SetPivotBrakeMode(pivot, false));
-    SmartDashboard.putData("Zero Pivot Encoder", new SetEncoderFromPivotDegrees(pivot, 0));
+    // SmartDashboard.putData("Set Pivot Brake Mode", new SetPivotBrakeMode(pivot, true));
+    // SmartDashboard.putData("Set Pivot Coast Mode", new SetPivotBrakeMode(pivot, false));
+    // SmartDashboard.putData("Zero Pivot Encoder", new SetEncoderFromPivotDegrees(pivot, 0));
   }
 
   /**
@@ -131,16 +131,16 @@ public class RobotContainer {
             swerveModeChooser::get));
     driverController.a().onTrue(new SetGyroYaw(drive, 0));
 
-    operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
-    operatorController.leftTrigger().whileTrue(new Scoot(intake));
-    operatorController.rightBumper().onTrue(new SetPivotState(pivot, PivotState.PICKUP));
-    operatorController.leftBumper().onTrue(new SetPivotState(pivot, PivotState.STOW));
-    operatorController.y().onTrue(new SetPivotState(pivot, PivotState.HIGH));
-    operatorController.b().onTrue(new SetPivotState(pivot, PivotState.MID));
-    operatorController.a().onTrue(new SetPivotState(pivot, PivotState.LOW));
-    operatorController.x().onTrue(new SetPivotState(pivot, PivotState.CHARGE));
+    // operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
+    // operatorController.leftTrigger().whileTrue(new Scoot(intake));
+    // operatorController.rightBumper().onTrue(new SetPivotState(pivot, PivotState.PICKUP));
+    // operatorController.leftBumper().onTrue(new SetPivotState(pivot, PivotState.STOW));
+    // operatorController.y().onTrue(new SetPivotState(pivot, PivotState.HIGH));
+    // operatorController.b().onTrue(new SetPivotState(pivot, PivotState.MID));
+    // operatorController.a().onTrue(new SetPivotState(pivot, PivotState.LOW));
+    // operatorController.x().onTrue(new SetPivotState(pivot, PivotState.CHARGE));
 
-    pivot.setDefaultCommand(new PivotTrackSetpoint(pivot));
+    // pivot.setDefaultCommand(new PivotTrackSetpoint(pivot));
   }
 
   /**
