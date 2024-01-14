@@ -5,7 +5,6 @@
 package org.first5924.frc2023swerve.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-// import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -14,25 +13,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import org.first5924.frc2023swerve.commands.drive.DriveWithJoysticks;
 import org.first5924.frc2023swerve.commands.drive.SetGyroYaw;
-// import org.first5924.frc2023swerve.commands.intake.RunIntake;
-// import org.first5924.frc2023swerve.commands.intake.Scoot;
-// import org.first5924.frc2023swerve.commands.pivot.PivotTrackSetpoint;
-// import org.first5924.frc2023swerve.commands.pivot.SetEncoderFromPivotDegrees;
-// import org.first5924.frc2023swerve.commands.pivot.SetPivotBrakeMode;
-// import org.first5924.frc2023swerve.commands.pivot.SetPivotState;
 import org.first5924.frc2023swerve.constants.Constants;
-// import org.first5924.frc2023swerve.constants.PivotConstants.PivotState;
 import org.first5924.frc2023swerve.subsystems.drive.Drive;
 import org.first5924.frc2023swerve.subsystems.drive.GyroIO;
 import org.first5924.frc2023swerve.subsystems.drive.GyroIOPigeon2;
 import org.first5924.frc2023swerve.subsystems.drive.ModuleIO;
 import org.first5924.frc2023swerve.subsystems.drive.ModuleIOSparkMax;
-// import org.first5924.frc2023swerve.subsystems.intake.Intake;
-// import org.first5924.frc2023swerve.subsystems.intake.IntakeIO;
-// import org.first5924.frc2023swerve.subsystems.intake.IntakeIOTalonFX;
-// import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
-// import org.first5924.frc2023swerve.subsystems.pivot.PivotIO;
-// import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -44,12 +30,10 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-  // private final Intake intake;
-  // private final Pivot pivot;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
-  // private final CommandXboxController operatorController = new CommandXboxController(1);
+  private final CommandXboxController operatorController = new CommandXboxController(1);
   private final LoggedDashboardChooser<Boolean> swerveModeChooser =
       new LoggedDashboardChooser<>("Swerve Mode Chooser");
   private final SendableChooser<Command> autoModeChooser;
