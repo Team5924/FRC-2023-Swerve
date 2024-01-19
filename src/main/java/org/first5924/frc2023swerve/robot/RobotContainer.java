@@ -38,8 +38,8 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-  private final Intake intake;
-  private final Pivot pivot;
+  // private final Intake intake;
+  // private final Pivot pivot;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -50,8 +50,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     
-    pivot = new Pivot(new PivotIOTalonFX());
-    intake = new Intake(new IntakeIOTalonFX());
+    // pivot = new Pivot(new PivotIOTalonFX());
+    // intake = new Intake(new IntakeIOTalonFX());
     
     switch (Constants.currentMode) {
         // Real robot, instantiate hardware IO implementations
@@ -129,14 +129,14 @@ public class RobotContainer {
             swerveModeChooser::get));
     driverController.a().onTrue(new SetGyroYaw(drive, 0));
 
-     operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
-     operatorController.leftTrigger().whileTrue(new Scoot(intake));
-    operatorController.rightBumper().onTrue(new SetPivotState(pivot, PivotState.PICKUP));
-    operatorController.leftBumper().onTrue(new SetPivotState(pivot, PivotState.STOW));
-    operatorController.y().onTrue(new SetPivotState(pivot, PivotState.HIGH));
-    operatorController.b().onTrue(new SetPivotState(pivot, PivotState.MID));
-    operatorController.a().onTrue(new SetPivotState(pivot, PivotState.LOW));
-    operatorController.x().onTrue(new SetPivotState(pivot, PivotState.CHARGE));
+    // operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
+    // operatorController.leftTrigger().whileTrue(new Scoot(intake));
+    // operatorController.rightBumper().onTrue(new SetPivotState(pivot, PivotState.PICKUP));
+    // operatorController.leftBumper().onTrue(new SetPivotState(pivot, PivotState.STOW));
+    // operatorController.y().onTrue(new SetPivotState(pivot, PivotState.HIGH));
+    // operatorController.b().onTrue(new SetPivotState(pivot, PivotState.MID));
+    // operatorController.a().onTrue(new SetPivotState(pivot, PivotState.LOW));
+    // operatorController.x().onTrue(new SetPivotState(pivot, PivotState.CHARGE));
 
     // pivot.setDefaultCommand(new PivotTrackSetpoint(pivot));
   }

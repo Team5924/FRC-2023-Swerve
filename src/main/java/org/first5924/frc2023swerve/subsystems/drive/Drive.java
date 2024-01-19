@@ -11,6 +11,8 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
+
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -25,6 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.first5924.frc2023swerve.constants.DriveConstants;
+import org.first5924.lib.LimelightHelpers;
 import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase {
@@ -44,7 +47,7 @@ public class Drive extends SubsystemBase {
           new Translation2d(-DriveConstants.kTrackWidthX / 2, DriveConstants.kTrackWidthY / 2),
           new Translation2d(-DriveConstants.kTrackWidthX / 2, -DriveConstants.kTrackWidthY / 2));
 
-  private SwerveDriveOdometry odometry;
+  private SwerveDrivePoseEstimator poseEstimator;
 
   private Field2d field2d = new Field2d();
 
@@ -66,8 +69,8 @@ public class Drive extends SubsystemBase {
     for (var module : modules) {
       module.setBrakeMode(false);
     }
-    odometry =
-      new SwerveDriveOdometry(
+    poseEstimator =
+      new SwerveDrivePoseEstimator(
         kinematics,
         new Rotation2d(gyroInputs.yawPositionRad),
         new SwerveModulePosition[] {
@@ -75,7 +78,9 @@ public class Drive extends SubsystemBase {
           modules[1].getPosition(),
           modules[2].getPosition(),
           modules[3].getPosition(),
-        });
+        },
+        new Pose2d(16.4592, 8.2296, new Rotation2d())
+      );
 
     AutoBuilder.configureHolonomic(
       this::getPose, // Robot pose supplier
@@ -175,18 +180,25 @@ public class Drive extends SubsystemBase {
       }
     }
 
-    odometry.update(
+    poseEstimator.update(
         new Rotation2d(gyroInputs.yawPositionRad),
         new SwerveModulePosition[] {
           modules[0].getPosition(),
           modules[1].getPosition(),
           modules[2].getPosition(),
           modules[3].getPosition(),
-        });
-    field2d.setRobotPose(odometry.getPoseMeters());
+        }
+    );
 
-    SmartDashboard.putNumber("X", odometry.getPoseMeters().getX());
-    SmartDashboard.putNumber("Y", odometry.getPoseMeters().getY());
+    Pose2d visionBotPose2d = LimelightHelpers.getBotPose2d("limelight");
+    Logger.recordOutput("Vision Bot Pose", visionBotPose2d);
+
+    // poseEstimator.addVisionMeasurement(LimelightHelpers.getBotPose2d("limelight"), Timer.getFPGATimestamp() - (LimelightHelpers.getLatency_Pipeline("limelight") / 1000) - (LimelightHelpers.getLatency_Capture("limelight") / 1000));
+
+    Logger.recordOutput("Estimated Pose", poseEstimator.getEstimatedPosition());
+
+    SmartDashboard.putNumber("X", poseEstimator.getEstimatedPosition().getX());
+    SmartDashboard.putNumber("Y", poseEstimator.getEstimatedPosition().getY());
   }
 
   /** Stops the drive. */
@@ -226,11 +238,11 @@ public class Drive extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return odometry.getPoseMeters();
+    return poseEstimator.getEstimatedPosition();
   }
 
   public void resetPose(Pose2d pose) {
-    odometry.resetPosition(
+    poseEstimator.resetPosition(
         pose.getRotation(),
         new SwerveModulePosition[] {
           modules[0].getPosition(),
