@@ -189,9 +189,9 @@ public class Drive extends SubsystemBase {
           modules[3].getPosition(),
         }
     );
-
-    Pose2d visionBotPose2d = LimelightHelpers.getBotPose2d("limelight");
-    Logger.recordOutput("Vision Bot Pose", visionBotPose2d);
+    //'bad' code chris wrote
+    //Pose2d visionBotPose2d = LimelightHelpers.getBotPose("limelight");
+    Logger.recordOutput("Vision Bot Pose", LimelightHelpers.getBotPose("limelight"));
 
     // poseEstimator.addVisionMeasurement(LimelightHelpers.getBotPose2d("limelight"), Timer.getFPGATimestamp() - (LimelightHelpers.getLatency_Pipeline("limelight") / 1000) - (LimelightHelpers.getLatency_Capture("limelight") / 1000));
 
