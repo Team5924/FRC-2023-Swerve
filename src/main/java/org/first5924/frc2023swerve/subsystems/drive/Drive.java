@@ -196,6 +196,7 @@ public class Drive extends SubsystemBase {
     // poseEstimator.addVisionMeasurement(LimelightHelpers.getBotPose2d("limelight"), Timer.getFPGATimestamp() - (LimelightHelpers.getLatency_Pipeline("limelight") / 1000) - (LimelightHelpers.getLatency_Capture("limelight") / 1000));
 
     Logger.recordOutput("Estimated Pose", poseEstimator.getEstimatedPosition());
+    Logger.recordOutput("test", 1);
 
     SmartDashboard.putNumber("X", poseEstimator.getEstimatedPosition().getX());
     SmartDashboard.putNumber("Y", poseEstimator.getEstimatedPosition().getY());
