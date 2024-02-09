@@ -27,7 +27,10 @@ import org.first5924.frc2023swerve.subsystems.intake.Intake;
 import org.first5924.frc2023swerve.subsystems.intake.IntakeIOTalonFX;
 import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
+import org.first5924.frc2023swerve.subsystems.vision.Vision;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+import org.first5924.frc2023swerve.constants.VisionConstants;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,6 +43,7 @@ public class RobotContainer {
   private final Drive drive;
   private final Intake intake;
   private final Pivot pivot;
+  private final Vision vision;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -63,7 +67,7 @@ public class RobotContainer {
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3));
-        
+        vision = new Vision();
         // pivot = new Pivot(new PivotIOTalonFX());
         break;
 
@@ -78,6 +82,7 @@ public class RobotContainer {
                 new ModuleIO() {});
         // intake = new Intake(new IntakeIO() {});
         // pivot = new Pivot(new PivotIO() {});
+        vision = new Vision();
         break;
 
         // Replayed robot, disable IO implementations
@@ -89,6 +94,7 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
+            vision = new Vision();
         // intake = new Intake(new IntakeIO() {});
         // pivot = new Pivot(new PivotIO() {});
         break;
