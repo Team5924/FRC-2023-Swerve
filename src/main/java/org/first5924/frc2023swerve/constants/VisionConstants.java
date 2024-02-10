@@ -8,7 +8,7 @@ public final class VisionConstants {
     public static final double limelightHeight = 28.5;
 
     // how many degrees is limelight rotated from facing perfectly downwards? -a
-    public static final double limelightMountAngleDegrees = 73;
+    public static final double limelightMountAngleDegrees = -17;
 
 
     // ********** these don't need to be set **********

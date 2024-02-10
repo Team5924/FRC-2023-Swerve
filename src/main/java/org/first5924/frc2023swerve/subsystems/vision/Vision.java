@@ -37,7 +37,7 @@ public class Vision extends SubsystemBase {
         SmartDashboard.putNumber("tx", x);
         SmartDashboard.putNumber("ty", y);
         SmartDashboard.putString("table", table.toString());
-        SmartDashboard.putNumber("distance", getVerticalDistanceToTarget());
+        SmartDashboard.putNumber("distance", getDistanceToTargetInches());
         // System.out.println("BANANA - table: " + table.containsKey("tx") + " / pos: (" + x + ", " + y + ")");
     }
 
@@ -49,7 +49,7 @@ public class Vision extends SubsystemBase {
      * Distance from the point the limelight is looking at to the target (🍩)
      * @return the distance ^
      */
-    public double getVerticalDistanceToTarget()
+    public double getVerticalDistanceToTargetInches()
     {
         // angle from crosshair to 🍩 (vertical)
         double targetOffsetAngleVerticalRadians = ty.getDouble(0) * VisionConstants.degreesToRadiansMultiplier;
@@ -59,5 +59,17 @@ public class Vision extends SubsystemBase {
 
         return VisionConstants.limelightHeight * Math.tan(angleToGoal);
     }
+
+    public double getDistanceToTargetInches()
+    {
+        // angle from crosshair to 🍩 (vertical)
+        double targetOffsetAngleVerticalRadians = ty.getDouble(0) * VisionConstants.degreesToRadiansMultiplier;
+
+        // angle from limelight to 🍩 (vertical)
+        double angleToGoal = VisionConstants.limelightMountAngleRadians + targetOffsetAngleVerticalRadians;
+
+        return VisionConstants.limelightHeight / Math.tan(angleToGoal);
+    }
 }
+
 

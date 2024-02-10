@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-import org.first5924.frc2023swerve.commands.LookAtNote;
+import org.first5924.frc2023swerve.commands.DriveToNote;
 import org.first5924.frc2023swerve.commands.drive.DriveWithJoysticks;
 import org.first5924.frc2023swerve.commands.drive.SetGyroYaw;
 import org.first5924.frc2023swerve.commands.intake.RunIntake;
@@ -136,7 +136,7 @@ public class RobotContainer {
             driverController::getRightX,
             swerveModeChooser::get));
     driverController.a().onTrue(new SetGyroYaw(drive, 0));
-    driverController.b().onTrue(new LookAtNote(vision, drive));
+    driverController.b().onTrue(new DriveToNote(vision, drive));
 
      operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
      operatorController.leftTrigger().whileTrue(new Scoot(intake));
