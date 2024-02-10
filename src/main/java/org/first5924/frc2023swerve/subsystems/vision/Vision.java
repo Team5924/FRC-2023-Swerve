@@ -34,8 +34,6 @@ public class Vision extends SubsystemBase {
         // This method will be called once per scheduler run
         x = tx.getDouble(0.0);
         y = ty.getDouble(0.0);
-        SmartDashboard.putNumber("tx", x);
-        SmartDashboard.putNumber("ty", y);
         SmartDashboard.putString("table", table.toString());
         SmartDashboard.putNumber("distance", getDistanceToTargetInches());
         // System.out.println("BANANA - table: " + table.containsKey("tx") + " / pos: (" + x + ", " + y + ")");

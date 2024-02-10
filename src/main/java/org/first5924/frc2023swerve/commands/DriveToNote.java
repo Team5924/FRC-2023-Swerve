@@ -11,21 +11,20 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class DriveToNote extends Command {
   /** Creates a new LookAtNote. */
-  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     // Vertical offset from crosshair to target
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
 
-  private final Vision vision;
+  
   private final Drive drive;
-  public DriveToNote(Vision vision, Drive drive) {
-    this.vision = vision;
+  public DriveToNote(Drive drive) {
     this.drive = drive;
-    addRequirements(vision);
     addRequirements(drive);
     //PIDController visionController = new PIDController(.1, 0, 0);
   }
@@ -40,19 +39,32 @@ public class DriveToNote extends Command {
     double x = tx.getDouble(0);
     double y = ty.getDouble(0);
     //visionController.calculate()
-    if(x > 1){
-      drive.drive(.1, .1, .1, false);
+    if(x != 0 && y != 0){
+      if(x > 5){
+        drive.drive(-.1,0, -.1, false);
+      }
+      else if(x < -5){
+        drive.drive(-.1,0,.1,false);
+      }
+      else{
+        drive.drive(-.1, 0, 0, false);
+      }
     }
-    if(x < -1){
-      drive.drive(.1,.1,-.1,false);
+    else
+    {
+      drive.drive(0, 0, 0, false);
     }
+    
+    SmartDashboard.putNumber("tx", x);
+    SmartDashboard.putNumber("ty", y);
+  
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.stop();
+    drive.drive(0,0,0,false);
   }
 
   // Returns true when the command should end.
