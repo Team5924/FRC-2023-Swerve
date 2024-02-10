@@ -54,6 +54,9 @@ public class Drive extends SubsystemBase {
   private boolean isBrakeMode = false;
   private Timer lastMovementTimer = new Timer();
 
+  private boolean isDriving = false;
+  public boolean isDriving() { return isDriving; }
+
   public Drive(
       GyroIO gyroIO,
       ModuleIO flModuleIO,
@@ -119,6 +122,8 @@ public class Drive extends SubsystemBase {
       double vyMetersPerSecond,
       double omegaRadiansPerSecond,
       boolean fieldCentric) {
+    
+    isDriving = true;
     ChassisSpeeds speeds =
         fieldCentric
             ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -204,6 +209,7 @@ public class Drive extends SubsystemBase {
 
   /** Stops the drive. */
   public void stop() {
+    isDriving = false;
     for (Module module : modules) {
       module.stop();
     }

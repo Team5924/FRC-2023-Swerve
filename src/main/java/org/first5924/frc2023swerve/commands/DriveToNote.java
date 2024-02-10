@@ -20,13 +20,17 @@ public class DriveToNote extends Command {
     // Vertical offset from crosshair to target
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry tv = table.getEntry("tv");
+    PIDController visionControllerX;
+    PIDController visionControllerTheta;
 
   
   private final Drive drive;
   public DriveToNote(Drive drive) {
     this.drive = drive;
     addRequirements(drive);
-    //PIDController visionController = new PIDController(.1, 0, 0);
+    visionControllerX = new PIDController(.1, 0, 0);
+    visionControllerTheta = new PIDController(.1, 0, 0);
   }
 
   // Called when the command is initially scheduled.
@@ -38,23 +42,26 @@ public class DriveToNote extends Command {
   public void execute() {
     double x = tx.getDouble(0);
     double y = ty.getDouble(0);
+    double v = tv.getDouble(0);
     //visionController.calculate()
-    if(x != 0 && y != 0){
-      if(x > 5){
-        drive.drive(-.1,0, -.1, false);
-      }
-      else if(x < -5){
-        drive.drive(-.1,0,.1,false);
-      }
-      else{
-        drive.drive(-.1, 0, 0, false);
-      }
+    if(v == 1){
+      // if(x > 5){
+      //   drive.drive(visionController.calculate(x, 0), visionController.calculate(y, 0), -0.1, false);
+      // }
+      // else if(x < -5){
+      //   drive.drive(visionController.calculate(x, 0), 0, 0.1, false);
+      // }
+      // else{
+      //   drive.drive(visionController.calculate(), 0, 0, false);
+      // }
+      
+      drive.drive(visionControllerX.calculate(y + 1, 0), 0, visionControllerTheta.calculate(x + 1, 0), false);
     }
     else
     {
       drive.drive(0, 0, 0, false);
     }
-    
+  
     SmartDashboard.putNumber("tx", x);
     SmartDashboard.putNumber("ty", y);
   

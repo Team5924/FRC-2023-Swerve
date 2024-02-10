@@ -128,8 +128,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driverController.a().onTrue(new SetGyroYaw(drive, 0));
-    driverController.b().whileTrue(new DriveToNote(drive));
     drive.setDefaultCommand(
         new DriveWithJoysticks(
             drive,
@@ -137,6 +135,10 @@ public class RobotContainer {
             driverController::getLeftY,
             driverController::getRightX,
             swerveModeChooser::get));
+    driverController.a().onTrue(new SetGyroYaw(drive, 0));
+    //if (!drive.isDriving())
+      driverController.b().whileTrue(new DriveToNote(drive));
+
 
      operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
      operatorController.leftTrigger().whileTrue(new Scoot(intake));
