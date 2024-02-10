@@ -23,14 +23,17 @@ public class Vision extends SubsystemBase {
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
 
-    /** Creates a new Vision. */
-    public Vision() {}
+    double x;
+    double y;
+    public Vision() {
+        
+    }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        double x = tx.getDouble(0.0);
-        double y = ty.getDouble(0.0);
+        x = tx.getDouble(0.0);
+        y = ty.getDouble(0.0);
         SmartDashboard.putNumber("tx", x);
         SmartDashboard.putNumber("ty", y);
         SmartDashboard.putString("table", table.toString());
