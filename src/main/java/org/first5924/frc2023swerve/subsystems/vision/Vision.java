@@ -5,6 +5,8 @@
 package org.first5924.frc2023swerve.subsystems.vision;
 
 import org.first5924.frc2023swerve.subsystems.vision.LimelightHelpers;
+import org.first5924.frc2023swerve.subsystems.vision.LimelightHelpers.LimelightResults;
+import org.first5924.frc2023swerve.subsystems.vision.LimelightHelpers.LimelightTarget_Detector;
 import org.first5924.frc2023swerve.constants.VisionConstants;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -23,6 +25,9 @@ public class Vision extends SubsystemBase {
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
 
+    LimelightResults llresults;
+
+
     double x;
     double y;
     public Vision() {
@@ -36,7 +41,16 @@ public class Vision extends SubsystemBase {
         y = ty.getDouble(0.0);
         SmartDashboard.putString("table", table.toString());
         SmartDashboard.putNumber("distance", getDistanceToTargetInches());
+        SmartDashboard.putNumber("nomuber of targets in view", GetNumberOfTargets());
         // System.out.println("BANANA - table: " + table.containsKey("tx") + " / pos: (" + x + ", " + y + ")");
+    }
+
+    public int GetNumberOfTargets()
+    {
+        llresults = LimelightHelpers.getLatestResults("");
+
+        LimelightTarget_Detector[] targets = llresults.targetingResults.targets_Detector;
+        return targets.length;
     }
 
     public final Pose2d robotPose() {
