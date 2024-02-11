@@ -29,8 +29,8 @@ public class DriveToNote extends Command {
   public DriveToNote(Drive drive) {
     this.drive = drive;
     addRequirements(drive);
-    visionControllerX = new PIDController(.1, 0, 0);
-    visionControllerTheta = new PIDController(.1, 0, 0);
+    visionControllerX = new PIDController(.12, 0, 0);
+    visionControllerTheta = new PIDController(.05, 0, 0);
   }
 
   // Called when the command is initially scheduled.
