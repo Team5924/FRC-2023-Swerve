@@ -14,23 +14,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FieldCam extends SubsystemBase {
-  NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.aprilTagLimelightName);
-    // Vertical offset from crosshair to target
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
+  NetworkTable botPoseTable = NetworkTableInstance.getDefault().getTable(VisionConstants.aprilTagLimelightName);
+
+  public static double xBotPose;
+  public static double yBotPose;
 
     LimelightResults llresults;
-
-
-    double x;
-    double y;
   public FieldCam() {}
 
   @Override
   public void periodic() {
-    x = tx.getDouble(0.0);
-    y = ty.getDouble(0.0);
-    SmartDashboard.putString("table", table.toString());
+    double[] botPoseArray = botPoseTable.getEntry("botpose").getDoubleArray(new double[6]);
+    xBotPose = botPoseArray[0];
+    yBotPose = botPoseArray[1];
+    SmartDashboard.putNumber("Bot Pose X", xBotPose);
+    SmartDashboard.putNumber("Bot Pose y", yBotPose);
     
   }
 }
