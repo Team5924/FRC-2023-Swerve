@@ -29,7 +29,7 @@ import org.first5924.frc2023swerve.subsystems.intake.Intake;
 import org.first5924.frc2023swerve.subsystems.intake.IntakeIOTalonFX;
 import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
-import org.first5924.frc2023swerve.subsystems.vision.Vision;
+import org.first5924.frc2023swerve.subsystems.vision.DetectorCam;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.first5924.frc2023swerve.constants.VisionConstants;
 
@@ -45,7 +45,7 @@ public class RobotContainer {
   private final Drive drive;
   private final Intake intake;
   private final Pivot pivot;
-  private final Vision vision;
+  private final DetectorCam vision;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -69,7 +69,7 @@ public class RobotContainer {
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3));
-        vision = new Vision();
+        vision = new DetectorCam();
         // pivot = new Pivot(new PivotIOTalonFX());
         break;
 
@@ -84,7 +84,7 @@ public class RobotContainer {
                 new ModuleIO() {});
         // intake = new Intake(new IntakeIO() {});
         // pivot = new Pivot(new PivotIO() {});
-        vision = new Vision();
+        vision = new DetectorCam();
         break;
 
         // Replayed robot, disable IO implementations
@@ -96,7 +96,7 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
-            vision = new Vision();
+            vision = new DetectorCam();
         // intake = new Intake(new IntakeIO() {});
         // pivot = new Pivot(new PivotIO() {});
         break;
@@ -136,9 +136,7 @@ public class RobotContainer {
             driverController::getRightX,
             swerveModeChooser::get));
     driverController.a().onTrue(new SetGyroYaw(drive, 0));
-    //if (!drive.isDriving())
-      driverController.b().whileTrue(new DriveToNote(drive));
-
+    driverController.b().onTrue(new DriveToNote(drive));
 
      operatorController.rightTrigger().whileTrue(new RunIntake(intake, pivot));
      operatorController.leftTrigger().whileTrue(new Scoot(intake));

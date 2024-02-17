@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 
-public class Vision extends SubsystemBase {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+public class DetectorCam extends SubsystemBase {
+    NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.detectorLimelightName);
     // Vertical offset from crosshair to target
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
@@ -30,7 +30,7 @@ public class Vision extends SubsystemBase {
 
     double x;
     double y;
-    public Vision() {
+    public DetectorCam() {
         
     }
 

@@ -4,8 +4,9 @@
 
 package org.first5924.frc2023swerve.commands;
 
+import org.first5924.frc2023swerve.constants.VisionConstants;
 import org.first5924.frc2023swerve.subsystems.drive.Drive;
-import org.first5924.frc2023swerve.subsystems.vision.Vision;
+import org.first5924.frc2023swerve.subsystems.vision.DetectorCam;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class DriveToNote extends Command {
   /** Creates a new LookAtNote. */
-  private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  private NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.detectorLimelightName);
     // Vertical offset from crosshair to target
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
