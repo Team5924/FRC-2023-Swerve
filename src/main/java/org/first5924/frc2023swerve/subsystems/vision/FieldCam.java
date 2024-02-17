@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class FieldCam extends SubsystemBase {
   NetworkTable botPoseTable = NetworkTableInstance.getDefault().getTable(VisionConstants.aprilTagLimelightName);
 
-  public static double xBotPose;
-  public static double yBotPose;
+  public static double xBotPose = -1;
+  public static double yBotPose = -1;
 
     LimelightResults llresults;
   public FieldCam() {}

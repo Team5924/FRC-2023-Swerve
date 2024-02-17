@@ -30,6 +30,7 @@ import org.first5924.frc2023swerve.subsystems.intake.IntakeIOTalonFX;
 import org.first5924.frc2023swerve.subsystems.pivot.Pivot;
 import org.first5924.frc2023swerve.subsystems.pivot.PivotIOTalonFX;
 import org.first5924.frc2023swerve.subsystems.vision.DetectorCam;
+import org.first5924.frc2023swerve.subsystems.vision.FieldCam;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.first5924.frc2023swerve.constants.VisionConstants;
 
@@ -45,7 +46,8 @@ public class RobotContainer {
   private final Drive drive;
   private final Intake intake;
   private final Pivot pivot;
-  private final DetectorCam vision;
+  private final DetectorCam detectorCam;
+  private final FieldCam fieldCam;
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -69,7 +71,8 @@ public class RobotContainer {
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3));
-        vision = new DetectorCam();
+        detectorCam = new DetectorCam();
+        fieldCam = new FieldCam();
         // pivot = new Pivot(new PivotIOTalonFX());
         break;
 
@@ -84,7 +87,8 @@ public class RobotContainer {
                 new ModuleIO() {});
         // intake = new Intake(new IntakeIO() {});
         // pivot = new Pivot(new PivotIO() {});
-        vision = new DetectorCam();
+        detectorCam = new DetectorCam();
+        fieldCam = new FieldCam();
         break;
 
         // Replayed robot, disable IO implementations
@@ -96,7 +100,8 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
-            vision = new DetectorCam();
+        detectorCam = new DetectorCam();
+        fieldCam = new FieldCam();
         // intake = new Intake(new IntakeIO() {});
         // pivot = new Pivot(new PivotIO() {});
         break;
